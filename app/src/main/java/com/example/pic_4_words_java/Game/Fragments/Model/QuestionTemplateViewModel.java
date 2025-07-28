@@ -9,13 +9,10 @@ public class QuestionTemplateViewModel extends ViewModel {
     private String tvLevelContent;
     private String tvDifficultyCategoryContent;
 
-    public String getTvDifficultyCategoryContent() {
-        return tvDifficultyCategoryContent;
-    }
 
-    public void setTvDifficultyCategoryContent(String tvDifficultyCategoryContent) {
-        this.tvDifficultyCategoryContent = tvDifficultyCategoryContent;
-    }
+    //getters and setters
+    public String getTvDifficultyCategoryContent() { return tvDifficultyCategoryContent; }
+    public void setTvDifficultyCategoryContent(String tvDifficultyCategoryContent) { this.tvDifficultyCategoryContent = tvDifficultyCategoryContent; }
 
     public String getAnswer() { return answer; }
     public void setAnswer(String answer) { this.answer = answer; }

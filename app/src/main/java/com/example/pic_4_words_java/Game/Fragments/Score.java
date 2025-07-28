@@ -27,8 +27,9 @@ public class Score extends Fragment {
 
 
     public void setAndValidateScore(ScoreViewModel scoreModel, TextView tvScoreNumber){
-
         int score = MainModel.getScore();
+
+
         if(Objects.equals(CategoryFragment.getCategoryChosen(), "Superhero")){
             if(Objects.equals(DifficultyFragment.getDifficutlyChosen(), "Easy")){
                 scoreModel.setEsScore(score);
@@ -39,6 +40,9 @@ public class Score extends Fragment {
                 tvScoreNumber.setText(String.format("Score: %s", scoreModel.getHsScore()));
             }
         }
+
+
+
         if(Objects.equals(CategoryFragment.getCategoryChosen(), "Brainrot")){
             if(Objects.equals(DifficultyFragment.getDifficutlyChosen(), "Easy")){
 
@@ -50,31 +54,51 @@ public class Score extends Fragment {
                 tvScoreNumber.setText(String.format("Score: %s", scoreModel.getHbScore()));
             }
         }
+
+
         MainModel.setScore(0);
     }
 
 
 
+    //idk what this one is for
     public static Score newInstance() {
         return new Score();
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //main code
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         scoreModel = new ViewModelProvider(requireActivity()).get(ScoreViewModel.class);
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_score, container, false);
         TextView tvScoreNumber = view.findViewById(R.id.scoreNumber);
 
         setAndValidateScore(scoreModel, tvScoreNumber);
 
 
+        //Switches to new instance of Category Fragment
+        //Main issue of code
         ImageButton returnCategoryBtn = view.findViewById(R.id.returnToCategoryBtn);
         returnCategoryBtn.setOnClickListener(v -> {
             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
