@@ -37,6 +37,7 @@ public class CategoryFragment extends Fragment {
     }
 
 
+    //handle superhero
     private void easySuperheroQuestionHandler(FragmentTransaction fm){
         Fragment questionFragment;
         switch (mainModel.getCurrentQuestionCount()) {
@@ -155,6 +156,10 @@ public class CategoryFragment extends Fragment {
 
 
 
+
+
+
+    //handle brainrot
     private void easyBrainrotQuestionHandler(FragmentTransaction fm){
         Fragment questionFragment;
         switch (mainModel.getCurrentQuestionCount()) {
@@ -290,16 +295,18 @@ public class CategoryFragment extends Fragment {
 
 
 
-
+    //main codes
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //initialize models
         mainModel = new ViewModelProvider(requireActivity()).get(MainModel.class);
         questionModel = new ViewModelProvider(requireActivity()).get(QuestionTemplateViewModel.class);
         scoreModel = new ViewModelProvider(requireActivity()).get(ScoreViewModel.class);
 
 
+        //may need to omit as this does not work properly
         if(questionsAnswered == true){
 
             OnBackPressedCallback callback = new OnBackPressedCallback(true) {
@@ -325,24 +332,24 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
 
-
-
         TextView tvDifficultyChosen = view.findViewById(R.id.tvDifficultyChosen);
         tvDifficultyChosen.setText(DifficultyFragment.getDifficutlyChosen());
 
 
+
+        //Button clicks
         Button superheroBtn = view.findViewById(R.id.superheroCategoryBtn);
         superheroBtn.setOnClickListener(v -> superheroHandler(v, mainModel, questionModel));
-
 
         Button brainrotBtn = view.findViewById(R.id.brainrotCategoryBtn);
         brainrotBtn.setOnClickListener(v -> brainrotHandler(v, mainModel, questionModel));
 
 
+
+        //main process
         if (mainModel.getCurrentQuestionCount() > 1 &&
                 (DifficultyFragment.getDifficutlyChosen().equals("Easy") || DifficultyFragment.getDifficutlyChosen().equals("Hard"))) {
 
-            // Delay to allow fragment transaction to complete before committing another
 
             if(categoryChosen.equalsIgnoreCase("superhero")){
 

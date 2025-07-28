@@ -33,6 +33,7 @@ public class QuestionTemplate extends Fragment {
     private int newScore = baseScore;
 
 
+    //idk what this one is for
     public static QuestionTemplate newInstance() {
         return new QuestionTemplate();
     }
@@ -41,16 +42,21 @@ public class QuestionTemplate extends Fragment {
 
 
     private void checkAnswer(TextView outputResult, EditText userInput, ImageButton nextQuestionBtn){
-
         userInput.setOnEditorActionListener((v, actionId, event) -> {
 
+            //to handle enter key
             if(event != null && event.getAction() == KeyEvent.ACTION_DOWN){
                 if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+
                     if(userInput.getText().toString().equalsIgnoreCase(questionModel.getAnswer())){
                         brainrotModel.setScore(brainrotModel.getScore() + newScore);
 
+
+                        //disable input
                         userInput.setEnabled(false);
 
+
+                        //make invisible palettes appear
                         outputResult.setText(R.string.correctAnswer);
                         outputResult.setVisibility(View.VISIBLE);
 
@@ -58,6 +64,7 @@ public class QuestionTemplate extends Fragment {
                         nextQuestionBtn.setClickable(true);
 
 
+                        //debugging
                         Log.d("Replace", "Question Score: " + newScore);
                         Log.d("Total Replace", "Total Score: " + brainrotModel.getScore());
                     }
@@ -84,6 +91,12 @@ public class QuestionTemplate extends Fragment {
                 if(brainrotModel.getCurrentQuestionCount() <= 3 ){
                     brainrotModel.setCurrentQuestionCount(brainrotModel.getCurrentQuestionCount() + 1);
                 }
+
+
+
+                //creates new instance of category fragment
+                //switches to category fragment
+                //one of the main issues of my code
                 FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.flFragmentContainer, new CategoryFragment());
                 transaction.commit();
@@ -94,15 +107,29 @@ public class QuestionTemplate extends Fragment {
 
 
 
+
+
+
+
+
+
+
+    //main code
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //initialize models
         questionModel = new ViewModelProvider(requireActivity()).get(QuestionTemplateViewModel.class);
         brainrotModel = new ViewModelProvider(requireActivity()).get(MainModel.class);
+
+
+        //debug
         Log.d("CurrentQuestionCount", "Question Frag Current Question: " + brainrotModel.getCurrentQuestionCount());
         Log.d("Answer", "Answer in View Model: " + questionModel.getAnswer());
     }
 
+    //very self-explanatory code
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {

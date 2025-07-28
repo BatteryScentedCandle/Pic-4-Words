@@ -3,9 +3,10 @@ package com.example.pic_4_words_java.Game.Fragments.Model;
 import androidx.lifecycle.ViewModel;
 
 public class MainModel extends ViewModel {
-
     private int currentQuestionCount ;
     private static int score;
+
+
 
     //getters and setters
     public static int getScore() { return score; }
