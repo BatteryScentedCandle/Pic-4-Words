@@ -5,4 +5,6 @@
     <string name="AppTitle">Pic-4-Words</string>
     <string name="StartButton">Start</string>
     <string name="InsertFirebaseText">Insert Firebase Leaderboard Here</string>
+    <string name="correctAnswer">Correct</string>
+    <string name="wrongAnswer">Wrong</string>
 </resources>

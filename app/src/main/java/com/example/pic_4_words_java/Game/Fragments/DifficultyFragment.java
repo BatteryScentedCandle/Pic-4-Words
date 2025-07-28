@@ -1,4 +1,4 @@
-package com.example.pic_4_words_java.Game;
+package com.example.pic_4_words_java.Game.Fragments;
 
 import android.os.Bundle;
 
@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.pic_4_words_java.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DifficultyFragment extends Fragment {
 
@@ -21,6 +20,12 @@ public class DifficultyFragment extends Fragment {
 
     public static String getDifficutlyChosen() {
         return difficutlyChosen;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        difficutlyChosen = null;
     }
 
     @Nullable
@@ -36,7 +41,7 @@ public class DifficultyFragment extends Fragment {
 
                 Fragment categoryFragment = new CategoryFragment();
                 FragmentTransaction diffFragment= requireActivity().getSupportFragmentManager().beginTransaction();
-                diffFragment.replace(R.id.flFragmentContainer, categoryFragment).commit();
+                diffFragment.replace(R.id.flFragmentContainer, categoryFragment).addToBackStack(null).commit();
 
             }
         });
@@ -50,7 +55,7 @@ public class DifficultyFragment extends Fragment {
 
                 Fragment categoryFragment = new CategoryFragment();
                 FragmentTransaction diffFragment= requireActivity().getSupportFragmentManager().beginTransaction();
-                diffFragment.replace(R.id.flFragmentContainer, categoryFragment).commit();
+                diffFragment.replace(R.id.flFragmentContainer, categoryFragment).addToBackStack(null).commit();
             }
         });
 
