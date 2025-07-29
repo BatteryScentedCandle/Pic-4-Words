@@ -1,5 +1,7 @@
 package com.example.pic_4_words_java;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -13,6 +15,8 @@ import com.example.pic_4_words_java.MainMenu.MainMenuFragmentStateAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
+    MediaPlayer player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,5 +26,25 @@ public class MainActivity extends AppCompatActivity {
         ViewPager2 viewPager = findViewById(R.id.viewpager);
         MainMenuFragmentStateAdapter adapter = new MainMenuFragmentStateAdapter(this);
         viewPager.setAdapter(adapter);
+
+        player = MediaPlayer.create(MainActivity.this, R.raw.m_b4);
+        player.setLooping(true);
+        player.setVolume(100, 100);
+        player.start();
+    }
+
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        player.start();
+        return startId;
+    }
+
+    public void onStart(Intent intent, int startId) {
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        player.stop();
+        player.release();
     }
 }
