@@ -32,11 +32,10 @@ public class QuestionTemplate extends Fragment {
     private int baseScore = 100;
     private int newScore = baseScore;
 
+    private final String categoryChosen = CategoryFragment.getCategoryChosen();
+    private final String difficultyChosen = DifficultyFragment.getDifficutlyChosen();
 
-    //idk what this one is for
-    public static QuestionTemplate newInstance() {
-        return new QuestionTemplate();
-    }
+
 
 
 
@@ -48,7 +47,8 @@ public class QuestionTemplate extends Fragment {
             if(event != null && event.getAction() == KeyEvent.ACTION_DOWN){
                 if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
 
-                    if(userInput.getText().toString().equalsIgnoreCase(questionModel.getAnswer())){
+                    String userInputAnswer = userInput.getText().toString();
+                    if(userInputAnswer.equalsIgnoreCase(questionModel.getAnswer())){
                         brainrotModel.setScore(brainrotModel.getScore() + newScore);
 
 
@@ -62,6 +62,8 @@ public class QuestionTemplate extends Fragment {
 
                         nextQuestionBtn.setVisibility(View.VISIBLE);
                         nextQuestionBtn.setClickable(true);
+
+                        moveToNextQuestion(nextQuestionBtn);
 
 
                         //debugging
@@ -156,7 +158,6 @@ public class QuestionTemplate extends Fragment {
         EditText userInput = view.findViewById(R.id.easyBrainrotUserInput);
         ImageButton nextQuestionBtn = view.findViewById(R.id.nextQuestionBtn);
         checkAnswer(outputResult, userInput, nextQuestionBtn);
-        moveToNextQuestion(nextQuestionBtn);
 
         return view;
     }
