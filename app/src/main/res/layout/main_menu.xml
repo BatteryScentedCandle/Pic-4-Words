@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/game_background" >
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="@string/game_title"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:typeface="monospace"
+        android:textAllCaps="true"
+        android:letterSpacing="0.1"
+        android:shadowColor="#62FF00"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        android:shadowRadius="4" />
+
+
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="70dp"
+        android:background="@drawable/button_design"
+        android:src="@android:drawable/ic_menu_manage"
+        android:contentDescription="@string/settings_btn" />
+
+
+    <ImageButton
+        android:id="@+id/playButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/button_design"
+        android:src="@android:drawable/ic_media_play"
+        android:contentDescription="@string/play_btn" />
+
+
+    <ImageButton
+        android:id="@+id/shareButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="70dp"
+        android:background="@drawable/button_design"
+        android:src="@android:drawable/ic_menu_share"
+        android:contentDescription="@string/share_btn" />
+
+</RelativeLayout>
