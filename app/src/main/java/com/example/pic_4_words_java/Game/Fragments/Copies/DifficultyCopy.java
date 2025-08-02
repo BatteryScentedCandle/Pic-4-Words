@@ -1,30 +1,33 @@
-package com.example.pic_4_words_java.Game.Fragments;
+package com.example.pic_4_words_java.Game.Fragments.Copies;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-
 import com.example.pic_4_words_java.R;
 
-public class DifficultyFragment extends Fragment {
-    private static String difficutlyChosen;
-    public static String getDifficutlyChosen() {
-        return difficutlyChosen;
+public class DifficultyCopy extends Fragment {
+    private static String difficultyChosen;
+
+    public static String getDifficultyChosen() {
+        return difficultyChosen;
     }
 
+    public static void setDifficultyChosen(String difficultyChosen) {
+        DifficultyCopy.difficultyChosen = difficultyChosen;
+    }
 
-    public void switchToCategoryFrag(){
-        Fragment categoryFragment = new CategoryFragment();
+    public void goToQuestionFragment(){
+        Fragment questionFragment = new QuestionTemplateCopy() ;
         FragmentTransaction diffFragment= requireActivity().getSupportFragmentManager().beginTransaction();
-        diffFragment.replace(R.id.flFragmentContainer, categoryFragment).addToBackStack(null).commit();
+        diffFragment.replace(R.id.flFragmentContainer, questionFragment).addToBackStack(null).commit();
     }
 
 
@@ -32,8 +35,6 @@ public class DifficultyFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //resets difficulty
-        difficutlyChosen = null;
     }
 
     @Nullable
@@ -45,16 +46,14 @@ public class DifficultyFragment extends Fragment {
         //Button clicks
         Button easyBtn = view.findViewById(R.id.easyBtn);
         easyBtn.setOnClickListener(v -> {
-
-            difficutlyChosen = "Easy";
-            switchToCategoryFrag();
-
+            difficultyChosen = "Easy";
+            goToQuestionFragment();
         });
         Button hardBtn = view.findViewById(R.id.hardBtn);
         hardBtn.setOnClickListener(v -> {
 
-            difficutlyChosen = "Hard";
-            switchToCategoryFrag();
+            difficultyChosen = "Hard";
+            goToQuestionFragment();
 
         });
 

@@ -7,9 +7,14 @@ public class ScoreViewModel extends ViewModel {
     private int hsScore;
     private int hbScore;
     private int ebScore;
+    private int totalScore;
 
-
-
+    public int getTotalScore() {
+        return totalScore;
+    }
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
     //getters and setters
     public int getEbScore() {
         return ebScore;
