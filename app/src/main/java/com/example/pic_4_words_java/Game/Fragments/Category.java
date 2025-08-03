@@ -41,21 +41,15 @@ public class Category extends Fragment {
 
         //Button clicks
         Button superheroBtn = view.findViewById(R.id.superheroCategoryBtn);
-        superheroBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                categoryModel.setCategoryChosen("Superhero");
-                goToDifficulty();
-            }
+        superheroBtn.setOnClickListener(v -> {
+            categoryModel.setCategoryChosen("Superhero");
+            goToDifficulty();
         });
 
         Button brainrotBtn = view.findViewById(R.id.brainrotCategoryBtn);
-        brainrotBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                categoryModel.setCategoryChosen("Brainrot");
-                goToDifficulty();
-            }
+        brainrotBtn.setOnClickListener(v -> {
+            categoryModel.setCategoryChosen("Brainrot");
+            goToDifficulty();
         });
 
 
