@@ -1,4 +1,4 @@
-package com.example.pic_4_words_java.Game.Fragments.Copies;
+package com.example.pic_4_words_java.Game.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.pic_4_words_java.Game.Fragments.Model.DifficultyModel;
 import com.example.pic_4_words_java.R;
 
-public class DifficultyCopy extends Fragment {
-    private static String difficultyChosen;
+public class Difficulty extends Fragment {
 
-    public static String getDifficultyChosen() {
-        return difficultyChosen;
-    }
-
-    public static void setDifficultyChosen(String difficultyChosen) {
-        DifficultyCopy.difficultyChosen = difficultyChosen;
-    }
+    private DifficultyModel difficultyModel;
 
     public void goToQuestionFragment(){
-        Fragment questionFragment = new QuestionTemplateCopy() ;
+        Fragment questionFragment = new QuestionTemplate() ;
         FragmentTransaction diffFragment= requireActivity().getSupportFragmentManager().beginTransaction();
         diffFragment.replace(R.id.flFragmentContainer, questionFragment).addToBackStack(null).commit();
     }
@@ -34,7 +29,7 @@ public class DifficultyCopy extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        difficultyModel = new ViewModelProvider(requireActivity()).get(DifficultyModel.class);
     }
 
     @Nullable
@@ -46,13 +41,12 @@ public class DifficultyCopy extends Fragment {
         //Button clicks
         Button easyBtn = view.findViewById(R.id.easyBtn);
         easyBtn.setOnClickListener(v -> {
-            difficultyChosen = "Easy";
+            difficultyModel.setDifficultyChosen("Easy");
             goToQuestionFragment();
         });
         Button hardBtn = view.findViewById(R.id.hardBtn);
         hardBtn.setOnClickListener(v -> {
-
-            difficultyChosen = "Hard";
+            difficultyModel.setDifficultyChosen("Hard");
             goToQuestionFragment();
 
         });

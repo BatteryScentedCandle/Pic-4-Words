@@ -1,4 +1,4 @@
-package com.example.pic_4_words_java.Game.Fragments.Copies;
+package com.example.pic_4_words_java.Game.Fragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -18,22 +18,23 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.example.pic_4_words_java.Game.Fragments.Model.CategoryModel;
+import com.example.pic_4_words_java.Game.Fragments.Model.DifficultyModel;
+import com.example.pic_4_words_java.Game.Fragments.Model.QuestionAnswerBuilder;
 import com.example.pic_4_words_java.Game.Fragments.Model.QuestionAnswerModel;
-import com.example.pic_4_words_java.Game.Fragments.Model.QuestionTemplateViewModel;
-import com.example.pic_4_words_java.Game.Fragments.QuestionAnswerBuilder;
-import com.example.pic_4_words_java.Game.Fragments.Score;
+import com.example.pic_4_words_java.Game.Fragments.Model.QuestionViewModel;
 import com.example.pic_4_words_java.R;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Objects;
 
-public class QuestionTemplateCopy extends Fragment {
+public class QuestionTemplate extends Fragment {
 
-    private QuestionTemplateViewModel questionModel;
+    private QuestionViewModel qViewModel;
     private QuestionAnswerModel qaModel;
+    private CategoryModel categoryModel;
+    private DifficultyModel difficultyModel;
 
     private final int baseScore = 100;
     private int newScore = baseScore;
@@ -95,7 +96,7 @@ public class QuestionTemplateCopy extends Fragment {
         String currentAnswer = answers.get(currentQuestion);
 
 
-        if(userInputAnswer.equalsIgnoreCase(currentAnswer) && currentAnswer != null){
+        if(userInputAnswer.equalsIgnoreCase(currentAnswer)){
             handleCorrectAnswer(outputResult, userInput, nextQuestionBtn);
         }
         else if (currentAnswer != null){
@@ -132,15 +133,17 @@ public class QuestionTemplateCopy extends Fragment {
 
     private void moveToNextFragment(ImageButton nextQuestionBtn){
         nextQuestionBtn.setOnClickListener(v -> {
+            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+
             if(qaModel.getCurrentQuestionCount() < 2){
                 qaModel.incrementQuestionCount();
-                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.flFragmentContainer, new QuestionTemplateCopy());
-                transaction.commit();
+                transaction.replace(R.id.flFragmentContainer, new QuestionTemplate()).commit();
             }else{
-                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.flFragmentContainer, new Score());
-                transaction.commit();
+
+                //reset models to ensure no overlapping, move to scre
+                qViewModel.resetViewModel();
+                qaModel.resetQAModel();
+                transaction.replace(R.id.flFragmentContainer, new Score()).commit();
             }
 
         });
@@ -164,8 +167,13 @@ public class QuestionTemplateCopy extends Fragment {
         allImageKeys = new ArrayList<>(allImages.keySet());
     }
 
-
-
+    public void isModelInitialized(Object model ) {
+        if (model != null) {
+            Log.d("Model Initialize", "Model initialized");
+        } else {
+            Log.d("Model Initialize", "Model not initialized");
+        }
+    }
 
 
 
@@ -185,11 +193,11 @@ public class QuestionTemplateCopy extends Fragment {
             if (allImages != null && allImageKeys != null && question >= 0 && question < allImageKeys.size()) {
                 questionImages = allImages.get(allImageKeys.get(question));
                 if (questionImages == null) {
-                    Log.e("CurrentQuestion", "No images found for question: " + question);
+                    Log.d("CurrentQuestion", "No images found for question: " + question);
                     // Handle the error case
                 }
             } else {
-                Log.e("CurrentQuestion", "Invalid question index or null data. Question: " + question + 
+                Log.d("CurrentQuestion", "Invalid question index or null data. Question: " + question +
                       ", allImageKeys: " + (allImageKeys != null ? allImageKeys.size() : "null") +
                       ", allImages: " + (allImages != null ? allImages.size() : "null"));
                 moveToNextFragment(nextQuestionBtn);
@@ -217,119 +225,75 @@ public class QuestionTemplateCopy extends Fragment {
         }
     }
 
+    public void handleQuestionDifficulty(ImageButton nextQuestionBtn, QuestionAnswerModel builder){
+        if (builder == null ) {
+            Log.e("QuestionHandler", "Failed to load question data");
+            return; // Optionally show an error to the user
+        }
 
-    public void easyBrainrotQuestionHandler(ImageButton nextQuestionBtn){
+        qaModel.setAnswer(builder.getAnswer());
+        qaModel.setImages(builder.getImages());
+        handlerLogic(nextQuestionBtn);
+    }
 
-        if(QuestionAnswerBuilder.easyBrainrotQA() != null){
+    public void brainrotQuestionHandler(ImageButton nextQuestionBtn) {
+        QuestionAnswerModel builder = null;
 
-            QuestionAnswerModel builder = QuestionAnswerBuilder.easyBrainrotQA();
-            qaModel.setAnswer(builder.getAnswer());
-            qaModel.setImages(builder.getImages());
-        }else{
-            Log.d("Model Error","Model Error: No answers initialized in model");
+        if(difficultyChosen.equalsIgnoreCase("easy")){
+            builder = QuestionAnswerBuilder.easyBrainrotQA();
+        }
+        else{
+            builder = QuestionAnswerBuilder.hardBrainrot();
+        }
+
+        if(builder != null){
+            handleQuestionDifficulty(nextQuestionBtn, builder);
+        }
+        else{
+            Log.d("Builder", "Builder is null");
+        }
+    }
+
+
+
+    public void superheroQuestionHandler(ImageButton nextQuestionBtn) {
+        QuestionAnswerModel builder = null;
+
+        if(difficultyChosen.equalsIgnoreCase("easy")){
+            builder = QuestionAnswerBuilder.easySuperhero();
+        }
+        else{
+            builder = QuestionAnswerBuilder.hardSuperhero();
+        }
+
+        if(builder != null){
+            handleQuestionDifficulty(nextQuestionBtn, builder);
+        }
+        else{
+            Log.d("Builder", "Builder is null");
+        }
+    }
+
+
+    public void mainHandler(TextView outputResult, EditText userInput, QuestionViewModel qViewModel, ImageButton nextQuestionBtn){
+        if(categoryChosen == null){
+            Log.d("Category", "Category is null");
             return;
         }
 
-        handlerLogic(nextQuestionBtn);
-
-    }
-
-
-
-    //still empty
-    public void hardBrainrotQuestionHandler(ImageButton nextQuestionBtn){
-
-        if(QuestionAnswerBuilder.hardBrainrot() != null){
-
-            QuestionAnswerModel builder = QuestionAnswerBuilder.hardBrainrot();
-            qaModel.setAnswer(builder.getAnswer());
-            qaModel.setImages(builder.getImages());
-        }else{
-            Log.d("Model Error","Model Error: No answers initialized in model");
-            return;
+        if(categoryChosen.equalsIgnoreCase("brainrot")){
+            Log.d("Category", "Category chosen: " + categoryChosen);
+            qViewModel.setTvDifficultyCategoryContent("Brainrot");
+            brainrotQuestionHandler(nextQuestionBtn);
         }
 
-        handlerLogic(nextQuestionBtn);
-
-    }
-
-    public void brainrotHandler(QuestionTemplateViewModel questionModel, ImageButton nextQuestionBtn){
-
-        if(Objects.equals(difficultyChosen, "Easy")){
-            Log.d("Difficulty", "Difficulty chosen: " + difficultyChosen);
-            questionModel.setTvDifficultyCategoryContent("Easy - Brainrot");
-            easyBrainrotQuestionHandler(nextQuestionBtn);
-
+        if(categoryChosen.equalsIgnoreCase("superhero")){
+            Log.d("Category", "Category chosen: " + categoryChosen);
+            qViewModel.setTvDifficultyCategoryContent("Superhero");
+            superheroQuestionHandler(nextQuestionBtn);
         }
 
-        if(Objects.equals(difficultyChosen, "Hard")){
-            Log.d("Difficulty", "Difficulty chosen: " + difficultyChosen);
-            questionModel.setTvDifficultyCategoryContent("Hard - Brainrot");
-            hardBrainrotQuestionHandler(nextQuestionBtn);
-        }
-
-    }
-
-
-
-
-
-    public void easySuperheroQuestionHandler(ImageButton nextQuestionBtn) {
-        try {
-            // Get the question data from the builder
-            QuestionAnswerModel builder = QuestionAnswerBuilder.easySuperhero();
-            
-            // Set the answer and images
-            if (builder != null && builder.getAnswer() != null && builder.getImages() != null) {
-                qaModel.setAnswer(builder.getAnswer());
-                qaModel.setImages(builder.getImages());
-                handlerLogic(nextQuestionBtn);
-            } else {
-                Log.e("EasySuperhero", "Failed to load question data");
-                // Handle the error case, maybe show a message to the user
-            }
-        } catch (Exception e) {
-            Log.e("EasySuperhero", "Error in easySuperheroQuestionHandler: " + e.getMessage());
-            e.printStackTrace();
-            // Handle the error case, maybe show a message to the user
-        }
-    }
-
-
-
-    //still empty
-    public void hardSuperheroQuestionHandler(ImageButton nextQuestionBtn){
-
-        qaModel = new QuestionAnswerModel();
-        if(QuestionAnswerBuilder.hardSuperhero() != null){
-
-            QuestionAnswerModel builder = QuestionAnswerBuilder.hardSuperhero();
-            qaModel.setAnswer(builder.getAnswer());
-            qaModel.setImages(builder.getImages());
-        }else{
-            Log.d("Model Error","Model Error: No answers initialized in model");
-            return;
-        }
-
-        handlerLogic(nextQuestionBtn);
-
-    }
-
-    public void superheroHandler(QuestionTemplateViewModel questionModel, ImageButton nextQuestionBtn){
-
-        if(Objects.equals(difficultyChosen, "Easy")){
-            Log.d("Difficulty", "Difficulty chosen: " + difficultyChosen);
-            questionModel.setTvDifficultyCategoryContent("Easy - Superhero");
-            easySuperheroQuestionHandler(nextQuestionBtn);
-
-        }
-
-        if(Objects.equals(difficultyChosen, "Hard")){
-            Log.d("Difficulty", "Difficulty chosen: " + difficultyChosen);
-            questionModel.setTvDifficultyCategoryContent("Hard - Superhero");
-            hardSuperheroQuestionHandler(   nextQuestionBtn);
-        }
-
+        checkAnswer(outputResult, userInput, nextQuestionBtn);
     }
 
 
@@ -352,58 +316,57 @@ public class QuestionTemplateCopy extends Fragment {
         super.onCreate(savedInstanceState);
 
        //initialize models
-        questionModel = new ViewModelProvider(requireActivity()).get(QuestionTemplateViewModel.class);
-        qaModel = new QuestionAnswerModel();  // Initialize qaModel
+        qViewModel = new ViewModelProvider(requireActivity()).get(QuestionViewModel.class);
+        qaModel = new ViewModelProvider(requireActivity()).get(QuestionAnswerModel.class);
+        categoryModel = new ViewModelProvider(requireActivity()).get(CategoryModel.class);
+        difficultyModel = new ViewModelProvider(requireActivity()).get(DifficultyModel.class);
+        Category category = new Category();
+        Difficulty difficulty = new Difficulty();
 
-        categoryChosen = CategoryCopy.getCategoryChosen();
-        difficultyChosen = DifficultyCopy.getDifficultyChosen();
+        //check if models are initialized
+        isModelInitialized(qViewModel);
+        isModelInitialized(qaModel);
+        isModelInitialized(category);
+        isModelInitialized(difficulty);
+
+        categoryChosen = categoryModel.getCategoryChosen();
+        difficultyChosen = difficultyModel.getDifficultyChosen();
         currentQuestion = qaModel.getCurrentQuestionCount();
 
-
-
-        //add code here for superhero
-
-
-        //debug
-        Log.d("CurrentQuestionCount", "Question Frag Current Question: " + qaModel.getCurrentQuestionCount());
+        Log.d("Category", "Category chosen: " + categoryChosen);
+        Log.d("Difficulty", "Difficulty chosen: " + difficultyChosen);
     }
 
     //very self-explanatory code
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.category_level_generic, container, false);
 
+
+
+        //process
+        TextView outputResult = view.findViewById(R.id.outputResult);
+        EditText userInput = view.findViewById(R.id.easyBrainrotUserInput);
+        ImageButton nextQuestionBtn = view.findViewById(R.id.nextQuestionBtn);
+        mainHandler(outputResult, userInput, qViewModel, nextQuestionBtn);
+
+
+
+
+
+
+        //views
         TextView tvDifficultyCategory = view.findViewById(R.id.tvDifficultyCategory);
-        tvDifficultyCategory.setText(questionModel.getTvDifficultyCategoryContent());
+        tvDifficultyCategory.setText(qViewModel.getTvDifficultyCategoryContent());
 
         TextView tvLevel = view.findViewById(R.id.tvLevel);
-        tvLevel.setText(questionModel.getTvLevelContent());
+        tvLevel.setText(qViewModel.getTvLevelContent());
 
         ImageView topLeft = view.findViewById(R.id.topLeft);
         ImageView topRight = view.findViewById(R.id.topRight);
         ImageView botLeft = view.findViewById(R.id.botLeft);
         ImageView botRight = view.findViewById(R.id.botRight);
 
-        TextView outputResult = view.findViewById(R.id.outputResult);
-        EditText userInput = view.findViewById(R.id.easyBrainrotUserInput);
-        ImageButton nextQuestionBtn = view.findViewById(R.id.nextQuestionBtn);
-
-
-        if(categoryChosen != null && categoryChosen.equalsIgnoreCase("brainrot")){
-            brainrotHandler(questionModel, nextQuestionBtn);
-            checkAnswer(outputResult, userInput, nextQuestionBtn);
-        }
-        if(categoryChosen != null && categoryChosen.equalsIgnoreCase("superhero")){
-            superheroHandler(questionModel, nextQuestionBtn);
-            checkAnswer(outputResult, userInput, nextQuestionBtn);
-        }
-
-        for(int i = 0; questionImages.size() < 3; ++i) {
-            if(questionImages.get(i) == null){
-                Log.d("Image null", "Image null: " + questionImages.get(i));
-            }
-        }
         Glide.with(this).load(questionImages.get(0)).override(300, 300).placeholder(R.drawable.ic_launcher_background).into(topLeft);
         Glide.with(this).load(questionImages.get(1)).override(300, 300).placeholder(R.drawable.ic_launcher_foreground).into(topRight);
         Glide.with(this).load(questionImages.get(2)).override(300, 300).placeholder(R.drawable.ic_launcher_background).into(botLeft);

@@ -1,4 +1,4 @@
-package com.example.pic_4_words_java.Game.Fragments.Copies;
+package com.example.pic_4_words_java.Game.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,21 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.pic_4_words_java.Game.Fragments.Model.CategoryModel;
 import com.example.pic_4_words_java.R;
 
-public class CategoryCopy extends Fragment {
-    private static String categoryChosen;
-
-    public static String getCategoryChosen() {
-        return categoryChosen;
-    }
-    public static void setCategoryChosen(String categoryChosen) {
-        CategoryCopy.categoryChosen = categoryChosen;
-    }
+public class Category extends Fragment {
+    private CategoryModel categoryModel;
 
     public void goToDifficulty() {
-        Fragment difficultyFragment = new DifficultyCopy();
+        Fragment difficultyFragment = new Difficulty();
         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.flFragmentContainer, difficultyFragment).addToBackStack(null).commit();
     }
@@ -34,6 +29,7 @@ public class CategoryCopy extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        categoryModel = new ViewModelProvider(requireActivity()).get(CategoryModel.class);
     }
 
     @Nullable
@@ -48,7 +44,7 @@ public class CategoryCopy extends Fragment {
         superheroBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                categoryChosen = "superhero";
+                categoryModel.setCategoryChosen("Superhero");
                 goToDifficulty();
             }
         });
@@ -57,7 +53,7 @@ public class CategoryCopy extends Fragment {
         brainrotBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                categoryChosen = "brainrot";
+                categoryModel.setCategoryChosen("Brainrot");
                 goToDifficulty();
             }
         });

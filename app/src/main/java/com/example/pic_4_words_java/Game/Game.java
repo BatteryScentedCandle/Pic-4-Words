@@ -7,14 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.pic_4_words_java.Game.Fragments.Copies.CategoryCopy;
-import com.example.pic_4_words_java.Game.Fragments.Copies.DifficultyCopy;
+import com.example.pic_4_words_java.Game.Fragments.Category;
 import com.example.pic_4_words_java.R;
 
 public class Game extends AppCompatActivity {
 
     public void goToCategoryCopy() {
-        Fragment categoryCopy = new CategoryCopy();
+        Fragment categoryCopy = new Category();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.flFragmentContainer, categoryCopy).commit();
     }

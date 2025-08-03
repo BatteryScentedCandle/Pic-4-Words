@@ -17,8 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.pic_4_words_java.Game.Fragments.Copies.CategoryCopy;
-import com.example.pic_4_words_java.Game.Fragments.Copies.DifficultyCopy;
+import com.example.pic_4_words_java.Game.Fragments.Model.CategoryModel;
+import com.example.pic_4_words_java.Game.Fragments.Model.DifficultyModel;
 import com.example.pic_4_words_java.Game.Fragments.Model.QuestionAnswerModel;
 import com.example.pic_4_words_java.Game.Fragments.Model.ScoreViewModel;
 import com.example.pic_4_words_java.R;
@@ -29,6 +29,10 @@ public class Score extends Fragment {
 
     private ScoreViewModel scoreModel;
     private QuestionAnswerModel qaModel;
+    private CategoryModel categoryModel;
+    private DifficultyModel difficultyModel;
+    private Category category;
+    private Difficulty difficulty;
     private String categoryChosen;
     private String difficultyChosen;
 
@@ -104,9 +108,11 @@ public class Score extends Fragment {
 
         qaModel = new ViewModelProvider(requireActivity()).get(QuestionAnswerModel.class);
         scoreModel = new ViewModelProvider(requireActivity()).get(ScoreViewModel.class);
+        categoryModel = new ViewModelProvider(requireActivity()).get(CategoryModel.class);
+        difficultyModel = new ViewModelProvider(requireActivity()).get(DifficultyModel.class);
 
-        categoryChosen = CategoryCopy.getCategoryChosen();
-        difficultyChosen = DifficultyCopy.getDifficultyChosen();
+        categoryChosen = categoryModel.getCategoryChosen();
+        difficultyChosen = difficultyModel.getDifficultyChosen();
     }
 
     @Override
@@ -124,13 +130,13 @@ public class Score extends Fragment {
             qaModel.resetQuestionCount();
 
             clearModel();
-            CategoryCopy.setCategoryChosen(null);
-            DifficultyCopy.setDifficultyChosen(null);
+            categoryModel.setCategoryChosen("");
+            difficultyModel.setDifficultyChosen("");
 
             requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.flFragmentContainer, new CategoryCopy());
+            transaction.replace(R.id.flFragmentContainer, new Category());
             transaction.commit();
         });
 

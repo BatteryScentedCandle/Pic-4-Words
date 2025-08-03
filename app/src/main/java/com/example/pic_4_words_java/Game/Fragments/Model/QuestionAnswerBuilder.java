@@ -1,7 +1,5 @@
-package com.example.pic_4_words_java.Game.Fragments;
+package com.example.pic_4_words_java.Game.Fragments.Model;
 
-
-import com.example.pic_4_words_java.Game.Fragments.Model.QuestionAnswerModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;

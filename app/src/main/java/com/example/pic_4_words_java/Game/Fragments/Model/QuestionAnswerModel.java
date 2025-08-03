@@ -4,6 +4,7 @@ package com.example.pic_4_words_java.Game.Fragments.Model;
 
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -38,5 +39,14 @@ public class QuestionAnswerModel extends ViewModel {
 
     public LinkedHashMap<String, List<String>> getImages() {
         return images;
+    }
+
+
+
+    public void resetQAModel(){
+        score = 0;
+        currentQuestionCount = 0;
+        answer = new ArrayList<>();
+        images  = new LinkedHashMap<>();
     }
 }

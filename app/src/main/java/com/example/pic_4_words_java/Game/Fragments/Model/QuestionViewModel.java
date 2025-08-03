@@ -3,7 +3,7 @@ package com.example.pic_4_words_java.Game.Fragments.Model;
 import androidx.lifecycle.ViewModel;
 import java.util.List;
 
-public class QuestionTemplateViewModel extends ViewModel {
+public class QuestionViewModel extends ViewModel {
     private String answer;
     private List<String> imageURL;
     private String tvLevelContent;
@@ -22,4 +22,10 @@ public class QuestionTemplateViewModel extends ViewModel {
 
     public String getTvLevelContent() { return tvLevelContent; }
     public void setTvLevelContent(String tvLevelContent) { this.tvLevelContent= tvLevelContent; }
+
+
+    public void resetViewModel(){
+        tvLevelContent = "";
+        tvDifficultyCategoryContent = "";
+    }
 }
