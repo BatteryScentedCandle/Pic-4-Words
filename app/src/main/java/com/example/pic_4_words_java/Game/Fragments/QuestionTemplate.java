@@ -367,10 +367,12 @@ public class QuestionTemplate extends Fragment {
         ImageView botLeft = view.findViewById(R.id.botLeft);
         ImageView botRight = view.findViewById(R.id.botRight);
 
-        Glide.with(this).load(questionImages.get(0)).override(300, 300).placeholder(R.drawable.ic_launcher_background).into(topLeft);
-        Glide.with(this).load(questionImages.get(1)).override(300, 300).placeholder(R.drawable.ic_launcher_foreground).into(topRight);
-        Glide.with(this).load(questionImages.get(2)).override(300, 300).placeholder(R.drawable.ic_launcher_background).into(botLeft);
-        Glide.with(this).load(questionImages.get(3)).override(300, 300).placeholder(R.drawable.ic_launcher_foreground).into(botRight);
+
+
+        Glide.with(this).load(questionImages.get(0)).override(300, 300).centerCrop().placeholder(R.drawable.ic_launcher_background).into(topLeft);
+        Glide.with(this).load(questionImages.get(1)).override(300, 300).centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(topRight);
+        Glide.with(this).load(questionImages.get(2)).override(300, 300).centerCrop().placeholder(R.drawable.ic_launcher_background).into(botLeft);
+        Glide.with(this).load(questionImages.get(3)).override(300, 300).centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(botRight);
 
 
 

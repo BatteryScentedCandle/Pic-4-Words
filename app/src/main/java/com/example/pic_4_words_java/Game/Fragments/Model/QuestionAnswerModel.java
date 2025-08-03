@@ -44,7 +44,6 @@ public class QuestionAnswerModel extends ViewModel {
 
 
     public void resetQAModel(){
-        score = 0;
         currentQuestionCount = 0;
         answer = new ArrayList<>();
         images  = new LinkedHashMap<>();

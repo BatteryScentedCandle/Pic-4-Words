@@ -31,51 +31,41 @@ public class Score extends Fragment {
     private QuestionAnswerModel qaModel;
     private CategoryModel categoryModel;
     private DifficultyModel difficultyModel;
-    private Category category;
-    private Difficulty difficulty;
     private String categoryChosen;
     private String difficultyChosen;
 
 
-    public void setAndValidateScore(TextView tvScoreNumber){
-        int score = qaModel.getScore();
-        Log.d("Some Score", "Score: " + score);
 
+    //helper methods
+    private String getScoreField(String categoryChosen, String difficultyChosen){
 
-
-
+        //returns which score field (category + difficulty) to update
         if(categoryChosen.equalsIgnoreCase("Superhero")){
-            if(difficultyChosen.equalsIgnoreCase("Easy")){
-                scoreModel.setEsScore(score);
-
-                Log.d("EsScore", "Score: " + scoreModel.getEsScore());
-
-                scoreModel.setTotalScore(scoreModel.getTotalScore() + scoreModel.getEsScore());
-                tvScoreNumber.setText(String.format("Score: %s", scoreModel.getEsScore()));
-            }else{
-
-                scoreModel.setHsScore(score);
-                scoreModel.setTotalScore(scoreModel.getTotalScore() + scoreModel.getHsScore());
-                tvScoreNumber.setText(String.format("Score: %s", scoreModel.getHsScore()));
-            }
+            return difficultyChosen.equalsIgnoreCase("Easy") ? "esScore" : "hsScore";
+        }else if(categoryChosen.equalsIgnoreCase("Brainrot")){
+            return difficultyChosen.equalsIgnoreCase("Easy") ? "ebScore" : "hbScore";
         }
 
+        //just in case
+        return "";
+    }
 
 
-        if(Objects.equals(categoryChosen, "Brainrot")){
-            if(Objects.equals(difficultyChosen, "Easy")){
+    private void setScoreFieldValue(ScoreViewModel scoreModel, String scoreField, int score){
+        if(scoreField.equalsIgnoreCase("esScore")) scoreModel.setEsScore(score);
+        if(scoreField.equalsIgnoreCase("hsScore")) scoreModel.setHsScore(score);
+        if(scoreField.equalsIgnoreCase("ebScore")) scoreModel.setEbScore(score);
+        if(scoreField.equalsIgnoreCase("hbScore")) scoreModel.setHbScore(score);
+    }
 
-                scoreModel.setEbScore(score);
-                tvScoreNumber.setText(String.format("Score: %s", scoreModel.getEbScore()));
-                scoreModel.setTotalScore(scoreModel.getTotalScore() + scoreModel.getEbScore());
-            }else{
+    private void setAndValidateScore(TextView tvScoreNumber){
+        int score = qaModel.getScore();
 
-                scoreModel.setHbScore(score);
-                scoreModel.setTotalScore(scoreModel.getTotalScore() + scoreModel.getHbScore());
-                tvScoreNumber.setText(String.format("Score: %s", scoreModel.getHbScore()));
-            }
-        }
+        String scoreField = getScoreField(categoryChosen, difficultyChosen);
+        setScoreFieldValue(scoreModel, scoreField, score);
 
+        scoreModel.setTotalScore(scoreModel.getTotalScore() + score);
+        tvScoreNumber.setText(String.format("Score: %s", score));
 
         qaModel.setScore(0);
     }
@@ -121,6 +111,11 @@ public class Score extends Fragment {
         TextView tvScoreNumber = view.findViewById(R.id.scoreNumber);
 
         setAndValidateScore(tvScoreNumber);
+        Log.d("Score", "esScore: " + scoreModel.getEsScore());
+        Log.d("Score", "hsScore: " + scoreModel.getHsScore());
+        Log.d("Score", "ebScore: " + scoreModel.getEbScore());
+        Log.d("Score", "hbScore: " + scoreModel.getHbScore());
+        Log.d("Score", "Total Score: " + scoreModel.getTotalScore());
 
 
         //Switches to new instance of Category Fragment
