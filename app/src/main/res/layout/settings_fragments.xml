@@ -1,0 +1,90 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#88000000">
+
+    <RelativeLayout
+        android:id="@+id/settingsPanel"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center"
+        android:background="#192B59"
+        android:padding="20dp"
+        android:elevation="8dp">
+
+
+        <ImageButton
+            android:id="@+id/closeButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="1dp"
+            android:background="@drawable/close_button_bg"
+            android:contentDescription="@string/close_settings"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+
+        <TextView
+            android:id="@+id/settingsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:typeface="monospace"
+            android:textAllCaps="true"
+            android:letterSpacing="0.1"
+            android:shadowColor="#62FF00"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
+
+
+
+        <TextView
+            android:id="@+id/volumeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/music_volume"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:layout_below="@id/settingsLabel"
+            android:layout_marginTop="50dp"
+            android:layout_alignStart="@id/settingsLabel"
+            android:translationX="10dp"/>
+
+
+
+        <SeekBar
+            android:id="@+id/volumeSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@id/volumeLabel"
+            android:layout_marginTop="10dp"
+            android:max="100"
+            android:progress="100"
+            android:thumbTint="#FFFFFF"
+            android:progressTint="#62FF00" />
+
+
+        <CheckBox
+            android:id="@+id/muteCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mute"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:padding="8dp"
+            android:layout_below="@id/volumeSeekBar"
+            android:layout_marginTop="110dp"
+            android:layout_alignStart="@id/volumeSeekBar" />
+
+    </RelativeLayout>
+</FrameLayout>

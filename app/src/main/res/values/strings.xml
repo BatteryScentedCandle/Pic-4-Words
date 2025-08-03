@@ -7,4 +7,14 @@
     <string name="InsertFirebaseText">Insert Firebase Leaderboard Here</string>
     <string name="correctAnswer">Correct</string>
     <string name="wrongAnswer">Wrong</string>
+
+
+    <string name="mute">Mute</string>
+    <string name="music_volume">Music Volume</string>
+    <string name="settings">Settings</string>
+    <string name="close_settings">Close Settings</string>
+    <string name="game_title">PIC-4-WORDS</string>
+    <string name="settings_btn">Settings</string>
+    <string name="play_btn">Play</string>
+    <string name="share_btn">Share</string>
 </resources>

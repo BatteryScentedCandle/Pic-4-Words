@@ -1,15 +1,18 @@
 package com.example.pic_4_words_java;
 
 import android.os.Bundle;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.pic_4_words_java.MainMenu.MainMenuFragmentStateAdapter;
+import com.example.pic_4_words_java.MainMenu.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
