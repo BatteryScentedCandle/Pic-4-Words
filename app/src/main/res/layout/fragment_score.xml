@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/game_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/scoreContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="20dp" >
+
+        <TextView
+            android:id="@+id/scoreNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp" />
+
+        <LinearLayout
+            android:id="@+id/imageButtonContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+             >
+
+
+            <ImageButton
+                android:id="@+id/returnToCategoryBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:contentDescription="Button to return to category"
+                android:src="@drawable/icon_return"
+                android:layout_gravity="center" />
+
+
+            <ImageButton
+                android:id="@+id/returnToMainMenuBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:contentDescription="Button to return to main menu"
+                android:src="@drawable/icon_home"
+                android:layout_gravity="center" />
+
+
+            <ImageButton
+                android:id="@+id/shareBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:contentDescription="Button to share"
+                android:src="@android:drawable/ic_menu_share"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
