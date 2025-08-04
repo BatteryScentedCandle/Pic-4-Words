@@ -1,5 +1,7 @@
 package com.example.pic_4_words_java;
 
+
+
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
