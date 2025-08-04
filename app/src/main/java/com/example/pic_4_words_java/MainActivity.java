@@ -1,6 +1,5 @@
 package com.example.pic_4_words_java;
 
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
