@@ -20,12 +20,21 @@
         app:layout_constraintBottom_toTopOf="@id/flFragmentContainer">
 
         <TextView
-            android:id="@+id/tvAppTitle"
+            android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textSize="25sp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center_horizontal"
+            android:text="@string/game_title"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:typeface="monospace"
+            android:textAllCaps="true"
+            android:letterSpacing="0.1"
+            android:shadowColor="#62FF00"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="4" />
 
     </FrameLayout>
 
@@ -33,6 +42,7 @@
         android:id="@+id/flFragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="?android:attr/actionBarSize"
 
         app:layout_constraintTop_toBottomOf="@id/AppTitleContainer"
         app:layout_constraintStart_toStartOf="parent"

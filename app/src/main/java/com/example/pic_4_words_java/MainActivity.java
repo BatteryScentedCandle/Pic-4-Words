@@ -3,23 +3,32 @@ package com.example.pic_4_words_java;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.widget.ImageButton;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
-
 import com.example.pic_4_words_java.MainMenu.MainMenuFragmentStateAdapter;
-import com.example.pic_4_words_java.MainMenu.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    MediaPlayer player;
+    //MediaPlayer only accepts float
+    private float volume = 1.0f;
+    public MediaPlayer player;
+
+
+
+    public int getVolume() {
+        return (int)(volume * 100);
+    }
+    public void setVolume(float volumePercent) {
+        this.volume = volumePercent / 100.0f;
+        player.setVolume(this.volume, this.volume);
+    }
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +40,11 @@ public class MainActivity extends AppCompatActivity {
         MainMenuFragmentStateAdapter adapter = new MainMenuFragmentStateAdapter(this);
         viewPager.setAdapter(adapter);
 
-        player = MediaPlayer.create(MainActivity.this, R.raw.m_b4);
-        player.setLooping(true);
-        player.setVolume(100, 100);
-        player.start();
+            player = MediaPlayer.create(MainActivity.this, R.raw.m_b4);
+            player.setLooping(true);
+            player.setVolume(volume, volume);
+            player.start();
+
     }
 
 
@@ -49,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     //these functions are not used
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        player.start();
-        return startId;
-    }
-
-    public void onStart(Intent intent, int startId) {
-    }
+//    public int onStartCommand(Intent intent, int flags, int startId) {
+//        player.start();
+//        return startId;
+//    }
+//
+//    public void onStart(Intent intent, int startId) {
+//    }
 
 }
