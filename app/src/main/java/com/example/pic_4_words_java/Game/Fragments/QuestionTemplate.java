@@ -18,11 +18,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.example.pic_4_words_java.CustomMediaPlayer;
 import com.example.pic_4_words_java.Game.Fragments.Model.CategoryModel;
 import com.example.pic_4_words_java.Game.Fragments.Model.DifficultyModel;
 import com.example.pic_4_words_java.Game.Fragments.Model.QuestionAnswerBuilder;
 import com.example.pic_4_words_java.Game.Fragments.Model.QuestionAnswerModel;
 import com.example.pic_4_words_java.Game.Fragments.Model.QuestionViewModel;
+//import com.example.pic_4_words_java.MainMenu.VolumeDetails;
 import com.example.pic_4_words_java.R;
 
 import java.util.ArrayList;
@@ -35,6 +37,15 @@ public class QuestionTemplate extends Fragment {
     private QuestionAnswerModel qaModel;
     private CategoryModel categoryModel;
     private DifficultyModel difficultyModel;
+//    private VolumeDetails volumeDetails;
+
+
+
+
+
+
+
+
 
     private final int baseScore = 100;
     private int newScore = baseScore;
@@ -141,6 +152,7 @@ public class QuestionTemplate extends Fragment {
             }else{
 
                 //reset models to ensure no overlapping, move to scre
+                CustomMediaPlayer.getInstance().stopAudio();
                 qViewModel.resetViewModel();
                 qaModel.resetQAModel();
                 transaction.replace(R.id.flFragmentContainer, new Score()).commit();
@@ -320,6 +332,7 @@ public class QuestionTemplate extends Fragment {
         qaModel = new ViewModelProvider(requireActivity()).get(QuestionAnswerModel.class);
         categoryModel = new ViewModelProvider(requireActivity()).get(CategoryModel.class);
         difficultyModel = new ViewModelProvider(requireActivity()).get(DifficultyModel.class);
+//        volumeDetails = new ViewModelProvider(requireActivity()).get(VolumeDetails.class);
         Category category = new Category();
         Difficulty difficulty = new Difficulty();
 
@@ -333,8 +346,23 @@ public class QuestionTemplate extends Fragment {
         difficultyChosen = difficultyModel.getDifficultyChosen();
         currentQuestion = qaModel.getCurrentQuestionCount();
 
+        //checks if CustomMediaPlayer is playing m_b4
+        if(CustomMediaPlayer.getInstance().getAudioFile() == 2131951617){
+            CustomMediaPlayer.getInstance().stopAudio();
+            CustomMediaPlayer.getInstance().playLoopingAudio(this.getContext(), R.raw.m_b1);
+
+            //not working
+//            CustomMediaPlayer.getInstance().setVolume(volumeDetails.getCurrentSeekbarProgress());
+        }
+
+
+
+
+
         Log.d("Category", "Category chosen: " + categoryChosen);
         Log.d("Difficulty", "Difficulty chosen: " + difficultyChosen);
+
+
     }
 
     //very self-explanatory code
@@ -378,6 +406,5 @@ public class QuestionTemplate extends Fragment {
 
         return view;
     }
-
 
 }

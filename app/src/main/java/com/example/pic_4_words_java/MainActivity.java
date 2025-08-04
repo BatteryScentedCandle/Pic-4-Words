@@ -1,6 +1,5 @@
 package com.example.pic_4_words_java;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,20 +8,6 @@ import com.example.pic_4_words_java.MainMenu.MainMenuFragmentStateAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    //MediaPlayer only accepts float
-    private float volume = 1.0f;
-    public MediaPlayer player;
-
-
-
-    public int getVolume() {
-        return (int)(volume * 100);
-    }
-    public void setVolume(float volumePercent) {
-        this.volume = volumePercent / 100.0f;
-        player.setVolume(this.volume, this.volume);
-    }
 
 
 
@@ -39,10 +24,11 @@ public class MainActivity extends AppCompatActivity {
         MainMenuFragmentStateAdapter adapter = new MainMenuFragmentStateAdapter(this);
         viewPager.setAdapter(adapter);
 
-            player = MediaPlayer.create(MainActivity.this, R.raw.m_b4);
-            player.setLooping(true);
-            player.setVolume(volume, volume);
-            player.start();
+            CustomMediaPlayer.getInstance().stopAudio();
+
+        CustomMediaPlayer.getInstance().playLoopingAudio(MainActivity.this, R.raw.m_b4);
+        CustomMediaPlayer.getInstance().setVolume(100);
+//        CustomMediaPlayer.getInstance().mediaPlayer.setVolume(volume, volume);
 
     }
 
@@ -50,20 +36,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        player.stop();
-        player.release();
+        CustomMediaPlayer.getInstance().stopAudio();
+        CustomMediaPlayer.getInstance().mediaPlayer.release();
     }
 
 
 
 
-    //these functions are not used
-//    public int onStartCommand(Intent intent, int flags, int startId) {
-//        player.start();
-//        return startId;
-//    }
-//
-//    public void onStart(Intent intent, int startId) {
-//    }
 
 }

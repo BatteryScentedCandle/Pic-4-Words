@@ -11,6 +11,7 @@ import android.widget.SeekBar;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.pic_4_words_java.CustomMediaPlayer;
 import com.example.pic_4_words_java.MainActivity;
 import com.example.pic_4_words_java.R;
 
@@ -34,9 +35,9 @@ public class SettingsFragment extends androidx.fragment.app.Fragment {
 
 
         //process for after user inputs on seekbar and/or checkbox
-        if(mainActivity.getVolume() != 0 && volumeDetails.getCurrentSeekbarProgress() !=  0){
-            mainActivity.setVolume(volumeDetails.getCurrentSeekbarProgress());
-            volumeSeekBar.setProgress(mainActivity.getVolume());
+        if(CustomMediaPlayer.getInstance().getVolume() != 0 && volumeDetails.getCurrentSeekbarProgress() !=  0){
+            CustomMediaPlayer.getInstance().setVolume(volumeDetails.getCurrentSeekbarProgress());
+            volumeSeekBar.setProgress(CustomMediaPlayer.getInstance().getVolume());
         }
         if(volumeDetails.getMuted()){
             volumeSeekBar.setProgress(volumeDetails.getCurrentSeekbarProgress());
@@ -49,7 +50,7 @@ public class SettingsFragment extends androidx.fragment.app.Fragment {
         volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mainActivity.setVolume(progress);
+                CustomMediaPlayer.getInstance().setVolume(progress);
                 volumeDetails.setCurrentSeekbarProgress(progress);
             }
             @Override
@@ -67,12 +68,12 @@ public class SettingsFragment extends androidx.fragment.app.Fragment {
         muteCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked){
                 volumeDetails.setMuted(true);
-                mainActivity.setVolume(0);
+                CustomMediaPlayer.getInstance().setVolume(0);
                 volumeSeekBar.setProgress(volumeDetails.getCurrentSeekbarProgress());
             }else{
                 volumeDetails.setMuted(false);
-                mainActivity.setVolume(volumeDetails.getCurrentSeekbarProgress());
-                volumeSeekBar.setProgress(mainActivity.getVolume());
+                CustomMediaPlayer.getInstance().setVolume(volumeDetails.getCurrentSeekbarProgress());
+                volumeSeekBar.setProgress(CustomMediaPlayer.getInstance().getVolume());
             }
         });
 
