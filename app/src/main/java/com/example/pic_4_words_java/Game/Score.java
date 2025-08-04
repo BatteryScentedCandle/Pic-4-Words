@@ -1,4 +1,4 @@
-package com.example.pic_4_words_java.Game.Fragments;
+package com.example.pic_4_words_java.Game;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,20 +19,17 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.pic_4_words_java.CustomMediaPlayer;
-import com.example.pic_4_words_java.Game.Fragments.Model.CategoryModel;
-import com.example.pic_4_words_java.Game.Fragments.Model.DifficultyModel;
-import com.example.pic_4_words_java.Game.Fragments.Model.QuestionAnswerModel;
-import com.example.pic_4_words_java.Game.Fragments.Model.ScoreViewModel;
+import com.example.pic_4_words_java.Model.CategoryModel;
+import com.example.pic_4_words_java.Model.DifficultyModel;
+import com.example.pic_4_words_java.Model.QuestionAnswerModel;
+import com.example.pic_4_words_java.Model.ScoreModel;
 import com.example.pic_4_words_java.MainActivity;
-import com.example.pic_4_words_java.MainMenu.GameVolumeDetails;
-import com.example.pic_4_words_java.MainMenu.VolumeDetails;
+import com.example.pic_4_words_java.Model.VolumeDetailsCopy;
 import com.example.pic_4_words_java.R;
-
-import java.util.Objects;
 
 public class Score extends Fragment {
 
-    private ScoreViewModel scoreModel;
+    private ScoreModel scoreModel;
     private QuestionAnswerModel qaModel;
     private CategoryModel categoryModel;
     private DifficultyModel difficultyModel;
@@ -56,7 +53,7 @@ public class Score extends Fragment {
     }
 
 
-    private void setScoreFieldValue(ScoreViewModel scoreModel, String scoreField, int score){
+    private void setScoreFieldValue(ScoreModel scoreModel, String scoreField, int score){
         if(scoreField.equalsIgnoreCase("esScore")) scoreModel.setEsScore(score);
         if(scoreField.equalsIgnoreCase("hsScore")) scoreModel.setHsScore(score);
         if(scoreField.equalsIgnoreCase("ebScore")) scoreModel.setEbScore(score);
@@ -127,7 +124,7 @@ public class Score extends Fragment {
         super.onCreate(savedInstanceState);
 
         qaModel = new ViewModelProvider(requireActivity()).get(QuestionAnswerModel.class);
-        scoreModel = new ViewModelProvider(requireActivity()).get(ScoreViewModel.class);
+        scoreModel = new ViewModelProvider(requireActivity()).get(ScoreModel.class);
         categoryModel = new ViewModelProvider(requireActivity()).get(CategoryModel.class);
         difficultyModel = new ViewModelProvider(requireActivity()).get(DifficultyModel.class);
 
@@ -172,7 +169,7 @@ public class Score extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        GameVolumeDetails volumeDetails = new ViewModelProvider(requireActivity()).get(GameVolumeDetails.class);
+        VolumeDetailsCopy volumeDetails = new ViewModelProvider(requireActivity()).get(VolumeDetailsCopy.class);
         CustomMediaPlayer.getInstance().playAudio(this.getContext(), R.raw.score_audio);
         CustomMediaPlayer.getInstance().setVolume(volumeDetails.getCurrentSeekbarProgress());
     }

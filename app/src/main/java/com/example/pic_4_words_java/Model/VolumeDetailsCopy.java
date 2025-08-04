@@ -1,10 +1,13 @@
-package com.example.pic_4_words_java.MainMenu;
+package com.example.pic_4_words_java.Model;
 
-import androidx.lifecycle.ViewModel;
+public class VolumeDetailsCopy extends VolumeDetails{
 
-public class VolumeDetails extends ViewModel {
     private int currentSeekbarProgress;
     private boolean isMuted;
+
+    public VolumeDetailsCopy() {
+    }
+
     public int getCurrentSeekbarProgress() {
         return currentSeekbarProgress;
     }
@@ -17,4 +20,6 @@ public class VolumeDetails extends ViewModel {
     public void setMuted(boolean muted) {
         isMuted = muted;
     }
+
+
 }

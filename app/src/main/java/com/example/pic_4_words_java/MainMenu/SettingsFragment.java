@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.pic_4_words_java.CustomMediaPlayer;
 import com.example.pic_4_words_java.MainActivity;
+import com.example.pic_4_words_java.Model.VolumeDetails;
 import com.example.pic_4_words_java.R;
 
 public class SettingsFragment extends androidx.fragment.app.Fragment {

@@ -17,7 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.example.pic_4_words_java.Game.Game;
+import com.example.pic_4_words_java.Game.GameActivity;
+import com.example.pic_4_words_java.Model.VolumeDetails;
 import com.example.pic_4_words_java.R;
 
 public class MainMenuFragment extends Fragment {
@@ -33,7 +34,7 @@ public class MainMenuFragment extends Fragment {
     }
 
     private void moveToGameActivity(){
-        Intent intent = new Intent(requireActivity(), Game.class);
+        Intent intent = new Intent(requireActivity(), GameActivity.class);
 
         VolumeDetails volumeDetails = new ViewModelProvider(requireActivity()).get(VolumeDetails.class);
         if(volumeDetails.getCurrentSeekbarProgress() == 0){

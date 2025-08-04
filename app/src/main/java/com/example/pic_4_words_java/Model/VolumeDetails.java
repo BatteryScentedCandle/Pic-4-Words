@@ -1,13 +1,10 @@
-package com.example.pic_4_words_java.MainMenu;
+package com.example.pic_4_words_java.Model;
 
-public class GameVolumeDetails extends VolumeDetails{
+import androidx.lifecycle.ViewModel;
 
+public class VolumeDetails extends ViewModel {
     private int currentSeekbarProgress;
     private boolean isMuted;
-
-    public GameVolumeDetails() {
-    }
-
     public int getCurrentSeekbarProgress() {
         return currentSeekbarProgress;
     }
@@ -20,6 +17,4 @@ public class GameVolumeDetails extends VolumeDetails{
     public void setMuted(boolean muted) {
         isMuted = muted;
     }
-
-
 }

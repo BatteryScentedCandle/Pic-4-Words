@@ -1,4 +1,4 @@
-package com.example.pic_4_words_java.Game.Fragments;
+package com.example.pic_4_words_java.Game;
 
 
 
@@ -21,14 +21,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.pic_4_words_java.CustomMediaPlayer;
-import com.example.pic_4_words_java.Game.Fragments.Model.CategoryModel;
-import com.example.pic_4_words_java.Game.Fragments.Model.DifficultyModel;
-import com.example.pic_4_words_java.Game.Fragments.Model.QuestionAnswerBuilder;
-import com.example.pic_4_words_java.Game.Fragments.Model.QuestionAnswerModel;
-import com.example.pic_4_words_java.Game.Fragments.Model.QuestionViewModel;
-//import com.example.pic_4_words_java.MainMenu.VolumeDetails;
-import com.example.pic_4_words_java.MainMenu.GameVolumeDetails;
-import com.example.pic_4_words_java.MainMenu.VolumeDetails;
+import com.example.pic_4_words_java.Model.CategoryModel;
+import com.example.pic_4_words_java.Model.DifficultyModel;
+import com.example.pic_4_words_java.Model.QuestionAnswerBuilder;
+import com.example.pic_4_words_java.Model.QuestionAnswerModel;
+import com.example.pic_4_words_java.Model.QuestionViewModel;
+//import com.example.pic_4_words_java.Model.VolumeDetails;
+import com.example.pic_4_words_java.Model.VolumeDetailsCopy;
 import com.example.pic_4_words_java.R;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class QuestionTemplate extends Fragment {
     private QuestionAnswerModel qaModel;
     private CategoryModel categoryModel;
     private DifficultyModel difficultyModel;
-    private GameVolumeDetails gameVolumeDetails;
+    private VolumeDetailsCopy volumeDetailsCopy;
 //    private VolumeDetails volumeDetails;
 
 
@@ -71,6 +70,8 @@ public class QuestionTemplate extends Fragment {
     //helper functions
 
     public void handleCorrectAnswer(TextView outputResult, EditText userInput, ImageButton nextQuestionBtn){
+
+
 
         //update score
         qaModel.setScore(qaModel.getScore() + newScore);
@@ -339,7 +340,7 @@ public class QuestionTemplate extends Fragment {
         if(CustomMediaPlayer.getInstance().getAudioFile() == menuAudio){
             CustomMediaPlayer.getInstance().stopAudio();
             CustomMediaPlayer.getInstance().playLoopingAudio(this.getContext(), R.raw.m_b1);
-            CustomMediaPlayer.getInstance().setVolume(gameVolumeDetails.getCurrentSeekbarProgress());
+            CustomMediaPlayer.getInstance().setVolume(volumeDetailsCopy.getCurrentSeekbarProgress());
         }
     }
     //main code
@@ -352,7 +353,7 @@ public class QuestionTemplate extends Fragment {
         qaModel = new ViewModelProvider(requireActivity()).get(QuestionAnswerModel.class);
         categoryModel = new ViewModelProvider(requireActivity()).get(CategoryModel.class);
         difficultyModel = new ViewModelProvider(requireActivity()).get(DifficultyModel.class);
-        gameVolumeDetails = new ViewModelProvider(requireActivity()).get(GameVolumeDetails.class);
+        volumeDetailsCopy = new ViewModelProvider(requireActivity()).get(VolumeDetailsCopy.class);
         Category category = new Category();
         Difficulty difficulty = new Difficulty();
 

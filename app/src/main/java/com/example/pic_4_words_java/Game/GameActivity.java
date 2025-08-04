@@ -9,12 +9,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.pic_4_words_java.Game.Fragments.Category;
-import com.example.pic_4_words_java.MainMenu.GameVolumeDetails;
-import com.example.pic_4_words_java.MainMenu.VolumeDetails;
+import com.example.pic_4_words_java.Model.VolumeDetailsCopy;
 import com.example.pic_4_words_java.R;
 
-public class Game extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
 
     public void goToCategoryCopy() {
         Fragment categoryCopy = new Category();
@@ -31,12 +29,12 @@ public class Game extends AppCompatActivity {
         int progress = getIntent().getIntExtra("progress", 100);
         boolean isMuted = getIntent().getBooleanExtra("muted", false);
 
-        GameVolumeDetails volumeDetails = new ViewModelProvider(this).get(GameVolumeDetails.class);
+        VolumeDetailsCopy volumeDetails = new ViewModelProvider(this).get(VolumeDetailsCopy.class);
         volumeDetails.setCurrentSeekbarProgress(progress);
         volumeDetails.setMuted(isMuted);
 
-        Log.d("Game", "Progress: " + progress);
-        Log.d("Game", "Muted: " + isMuted);
+        Log.d("GameActivity", "Progress: " + progress);
+        Log.d("GameActivity", "Muted: " + isMuted);
 
         goToCategoryCopy();
     }

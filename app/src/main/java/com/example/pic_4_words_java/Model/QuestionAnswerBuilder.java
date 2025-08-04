@@ -1,4 +1,4 @@
-package com.example.pic_4_words_java.Game.Fragments.Model;
+package com.example.pic_4_words_java.Model;
 
 
 import java.util.ArrayList;

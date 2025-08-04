@@ -1,4 +1,4 @@
-package com.example.pic_4_words_java.Game.Fragments;
+package com.example.pic_4_words_java.Game;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.pic_4_words_java.Game.Fragments.Model.DifficultyModel;
+import com.example.pic_4_words_java.Model.DifficultyModel;
 import com.example.pic_4_words_java.R;
 
 public class Difficulty extends Fragment {
