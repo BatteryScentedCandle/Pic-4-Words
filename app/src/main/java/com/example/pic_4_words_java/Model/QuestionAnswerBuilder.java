@@ -59,7 +59,7 @@ public class QuestionAnswerBuilder {
                 "https://i.imgur.com/5imhCMs.jpeg",
                 "https://i.imgur.com/w6wdCz9.png",
                 "https://i.imgur.com/V6WML55.png",
-                "https://i.imgur.com/LF4B2Ck.png");
+                "https://i.imgur.com/HNMYq7E.jpeg");
 
         addToMap(sourceImages,
                 "ebQ3",
@@ -143,7 +143,7 @@ public class QuestionAnswerBuilder {
                 "https://i.imgur.com/dtvXILx.jpeg",
                 "https://i.imgur.com/TgqIfsH.jpeg",
                 "https://i.imgur.com/dnXwJW7.jpeg",
-                "https://imgur.com/a/wZBEawM");
+                "https://i.imgur.com/Ps0oSFz.jpeg");
 
         addToMap(sourceImages,
                 "esQ3",
