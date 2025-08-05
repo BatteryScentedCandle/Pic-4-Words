@@ -26,8 +26,8 @@ import com.example.pic_4_words_java.Model.DifficultyModel;
 import com.example.pic_4_words_java.Model.QuestionAnswerBuilder;
 import com.example.pic_4_words_java.Model.QuestionAnswerModel;
 import com.example.pic_4_words_java.Model.QuestionViewModel;
-//import com.example.pic_4_words_java.Model.VolumeDetails;
-import com.example.pic_4_words_java.Model.VolumeDetailsCopy;
+//import com.example.pic_4_words_java.Model.BGMSettings;
+import com.example.pic_4_words_java.Model.BGMSettings;
 import com.example.pic_4_words_java.R;
 
 import java.util.ArrayList;
@@ -40,8 +40,8 @@ public class QuestionTemplate extends Fragment {
     private QuestionAnswerModel qaModel;
     private CategoryModel categoryModel;
     private DifficultyModel difficultyModel;
-    private VolumeDetailsCopy volumeDetailsCopy;
-//    private VolumeDetails volumeDetails;
+    private BGMSettings BGMSettings;
+//    private BGMSettings BGMSettings;
 
 
 
@@ -340,7 +340,7 @@ public class QuestionTemplate extends Fragment {
         if(CustomMediaPlayer.getInstance().getAudioFile() == menuAudio){
             CustomMediaPlayer.getInstance().stopAudio();
             CustomMediaPlayer.getInstance().playLoopingAudio(this.getContext(), R.raw.m_b1);
-            CustomMediaPlayer.getInstance().setVolume(volumeDetailsCopy.getCurrentSeekbarProgress());
+            CustomMediaPlayer.getInstance().setVolume(BGMSettings.getMuted() ? 0 : BGMSettings.getCurrentSeekbarProgress());
         }
     }
     //main code
@@ -353,7 +353,7 @@ public class QuestionTemplate extends Fragment {
         qaModel = new ViewModelProvider(requireActivity()).get(QuestionAnswerModel.class);
         categoryModel = new ViewModelProvider(requireActivity()).get(CategoryModel.class);
         difficultyModel = new ViewModelProvider(requireActivity()).get(DifficultyModel.class);
-        volumeDetailsCopy = new ViewModelProvider(requireActivity()).get(VolumeDetailsCopy.class);
+        BGMSettings = new ViewModelProvider(requireActivity()).get(BGMSettings.class);
         Category category = new Category();
         Difficulty difficulty = new Difficulty();
 

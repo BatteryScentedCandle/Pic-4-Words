@@ -19,12 +19,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.pic_4_words_java.CustomMediaPlayer;
+import com.example.pic_4_words_java.Model.BGMSettings;
 import com.example.pic_4_words_java.Model.CategoryModel;
 import com.example.pic_4_words_java.Model.DifficultyModel;
 import com.example.pic_4_words_java.Model.QuestionAnswerModel;
 import com.example.pic_4_words_java.Model.ScoreModel;
 import com.example.pic_4_words_java.MainActivity;
-import com.example.pic_4_words_java.Model.VolumeDetailsCopy;
 import com.example.pic_4_words_java.R;
 
 public class Score extends Fragment {
@@ -99,6 +99,14 @@ public class Score extends Fragment {
     public void moveToMainMenu(){
         CustomMediaPlayer.getInstance().stopAudio();
         Intent intent = new Intent(requireActivity(), MainActivity.class);
+
+        ScoreModel scoreModel = new ViewModelProvider(requireActivity()).get(ScoreModel.class);
+        intent.putExtra("esScore", scoreModel.getEsScore());
+        intent.putExtra("hsScore", scoreModel.getHsScore());
+        intent.putExtra("ebScore", scoreModel.getEbScore());
+        intent.putExtra("hbScore", scoreModel.getHbScore());
+        intent.putExtra("totalScore", scoreModel.getTotalScore());
+
         startActivity(intent);
     }
 
@@ -169,8 +177,8 @@ public class Score extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        VolumeDetailsCopy volumeDetails = new ViewModelProvider(requireActivity()).get(VolumeDetailsCopy.class);
+        BGMSettings BGMSettings = new ViewModelProvider(requireActivity()).get(BGMSettings.class);
         CustomMediaPlayer.getInstance().playAudio(this.getContext(), R.raw.score_audio);
-        CustomMediaPlayer.getInstance().setVolume(volumeDetails.getCurrentSeekbarProgress());
+        CustomMediaPlayer.getInstance().setVolume(BGMSettings.getMuted() ? 0 : BGMSettings.getCurrentSeekbarProgress());
     }
 }
