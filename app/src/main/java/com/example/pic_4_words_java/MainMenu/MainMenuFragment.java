@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.example.pic_4_words_java.Game.GameActivity;
-import com.example.pic_4_words_java.Model.VolumeDetails;
+import com.example.pic_4_words_java.Model.BGMSettings;
 import com.example.pic_4_words_java.R;
 
 public class MainMenuFragment extends Fragment {
@@ -33,16 +33,19 @@ public class MainMenuFragment extends Fragment {
                 .commit();
     }
 
+
+
+
     private void moveToGameActivity(){
         Intent intent = new Intent(requireActivity(), GameActivity.class);
 
-        VolumeDetails volumeDetails = new ViewModelProvider(requireActivity()).get(VolumeDetails.class);
-        if(volumeDetails.getCurrentSeekbarProgress() == 0){
-            volumeDetails.setCurrentSeekbarProgress(100);
+        BGMSettings BGMSettings = new ViewModelProvider(requireActivity()).get(BGMSettings.class);
+        if(BGMSettings.getCurrentSeekbarProgress() == 0){
+            BGMSettings.setCurrentSeekbarProgress(100);
         }
 
-        intent.putExtra("progress", volumeDetails.getCurrentSeekbarProgress());
-        intent.putExtra("muted", volumeDetails.getMuted());
+        intent.putExtra("progress", BGMSettings.getCurrentSeekbarProgress());
+        intent.putExtra("muted", BGMSettings.getMuted());
 
         startActivity(intent);
     }

@@ -1,8 +1,8 @@
-package com.example.pic_4_words_java.Game.Fragments.Model;
+package com.example.pic_4_words_java.Model;
 
 import androidx.lifecycle.ViewModel;
 
-public class ScoreViewModel extends ViewModel {
+public class ScoreModel extends ViewModel {
     private int esScore;
     private int hsScore;
     private int hbScore;

@@ -31,7 +31,7 @@ public class QuestionAnswerModel extends ViewModel {
 
     public void incrementQuestionCount(){ ++ currentQuestionCount;}
 
-    public void resetQuestionCount(){ currentQuestionCount = 0; };
+    public void resetQuestionCount(){ currentQuestionCount = 0; }
 
     public int getCurrentQuestionCount(){
         return currentQuestionCount;

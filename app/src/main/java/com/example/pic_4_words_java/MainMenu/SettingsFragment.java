@@ -15,11 +15,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.pic_4_words_java.CustomMediaPlayer;
 import com.example.pic_4_words_java.MainActivity;
-import com.example.pic_4_words_java.Model.VolumeDetails;
+import com.example.pic_4_words_java.Model.BGMSettings;
 import com.example.pic_4_words_java.R;
 
 public class SettingsFragment extends androidx.fragment.app.Fragment {
-    private VolumeDetails volumeDetails;
+    private BGMSettings BGMSettings;
 
 
     @Override
@@ -28,7 +28,7 @@ public class SettingsFragment extends androidx.fragment.app.Fragment {
 
         MainActivity mainActivity = (MainActivity) getActivity();
         if (mainActivity != null) {
-            volumeDetails = new ViewModelProvider(mainActivity).get(VolumeDetails.class);
+            BGMSettings = new ViewModelProvider(mainActivity).get(BGMSettings.class);
         }
 
     }
@@ -39,12 +39,12 @@ public class SettingsFragment extends androidx.fragment.app.Fragment {
 
 
         //process for after user inputs on seekbar and/or checkbox
-        if(CustomMediaPlayer.getInstance().getVolume() != 0 && volumeDetails.getCurrentSeekbarProgress() !=  0){
-            CustomMediaPlayer.getInstance().setVolume(volumeDetails.getCurrentSeekbarProgress());
+        if(CustomMediaPlayer.getInstance().getVolume() != 0 && BGMSettings.getCurrentSeekbarProgress() !=  0){
+            CustomMediaPlayer.getInstance().setVolume(BGMSettings.getCurrentSeekbarProgress());
             volumeSeekBar.setProgress(CustomMediaPlayer.getInstance().getVolume());
         }
-        if(volumeDetails.getMuted()){
-            volumeSeekBar.setProgress(volumeDetails.getCurrentSeekbarProgress());
+        if(BGMSettings.getMuted()){
+            volumeSeekBar.setProgress(BGMSettings.getCurrentSeekbarProgress());
         }
 
 
@@ -55,7 +55,7 @@ public class SettingsFragment extends androidx.fragment.app.Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 CustomMediaPlayer.getInstance().setVolume(progress);
-                volumeDetails.setCurrentSeekbarProgress(progress);
+                BGMSettings.setCurrentSeekbarProgress(progress);
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -68,17 +68,17 @@ public class SettingsFragment extends androidx.fragment.app.Fragment {
 
 
         CheckBox muteCheckbox = view.findViewById(R.id.muteCheckbox);
-        muteCheckbox.setChecked(volumeDetails.getMuted());
+        muteCheckbox.setChecked(BGMSettings.getMuted());
         muteCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked){
                 volumeSeekBar.setEnabled(false);
-                volumeDetails.setMuted(true);
+                BGMSettings.setMuted(true);
                 CustomMediaPlayer.getInstance().setVolume(0);
-                volumeSeekBar.setProgress(volumeDetails.getCurrentSeekbarProgress());
+                volumeSeekBar.setProgress(BGMSettings.getCurrentSeekbarProgress());
             }else{
                 volumeSeekBar.setEnabled(true);
-                volumeDetails.setMuted(false);
-                CustomMediaPlayer.getInstance().setVolume(volumeDetails.getCurrentSeekbarProgress());
+                BGMSettings.setMuted(false);
+                CustomMediaPlayer.getInstance().setVolume(BGMSettings.getCurrentSeekbarProgress());
                 volumeSeekBar.setProgress(CustomMediaPlayer.getInstance().getVolume());
             }
         });
