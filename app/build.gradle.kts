@@ -33,11 +33,11 @@ android {
 
 
 dependencies {
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation (libs.glide)
     implementation(libs.legacy.support.v4)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
+    annotationProcessor (libs.compiler)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
