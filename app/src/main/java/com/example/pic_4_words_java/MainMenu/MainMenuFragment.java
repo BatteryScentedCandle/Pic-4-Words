@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 
 import com.example.pic_4_words_java.Game.GameActivity;
 import com.example.pic_4_words_java.Model.BGMSettings;
+import com.example.pic_4_words_java.Model.ScoreModel;
 import com.example.pic_4_words_java.R;
 
 public class MainMenuFragment extends Fragment {
@@ -46,6 +47,13 @@ public class MainMenuFragment extends Fragment {
 
         intent.putExtra("progress", BGMSettings.getCurrentSeekbarProgress());
         intent.putExtra("muted", BGMSettings.getMuted());
+
+        ScoreModel scoreModel = new ViewModelProvider(requireActivity()).get(ScoreModel.class);
+        intent.putExtra("esScore", scoreModel.getEsScore());
+        intent.putExtra("hsScore", scoreModel.getHsScore());
+        intent.putExtra("ebScore", scoreModel.getEbScore());
+        intent.putExtra("hbScore", scoreModel.getHbScore());
+        intent.putExtra("totalScore", scoreModel.getTotalScore());
 
         startActivity(intent);
     }
