@@ -2,7 +2,7 @@ package com.example.pic_4_words_java.Model;
 
 import androidx.lifecycle.ViewModel;
 
-public class VolumeDetails extends ViewModel {
+public class BGMSettings extends ViewModel {
     private int currentSeekbarProgress;
     private boolean isMuted;
     public int getCurrentSeekbarProgress() {
