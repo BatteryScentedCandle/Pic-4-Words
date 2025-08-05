@@ -1,6 +1,7 @@
 package com.example.pic_4_words_java.MainMenu;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -58,10 +59,19 @@ public class MainMenuFragment extends Fragment {
         startActivity(intent);
     }
 
+    //Implicit Intent that opens facebook
     private void moveToShareGame(){
-        Intent i = new Intent(requireActivity(), GameActivity.class);
 
+        String advertisementText = "102% of people (with a 2% margin of error) fail this quiz";
+        String url = "https://www.facebook.com";
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        //i.setType("text/plain");
+        //i.putExtra(Intent.EXTRA_TEXT, advertisementText);
 
+        //opens Facebook app
+        //i.setPackage("com.facebook.katana");
+
+        startActivity(i);
     }
 
 
