@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.pic_4_words_java.BgmManager;
 import com.example.pic_4_words_java.Model.BGMSettings;
 import com.example.pic_4_words_java.Model.CategoryModel;
@@ -143,6 +144,11 @@ public class Score extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_score, container, false);
+
+        LottieAnimationView trophyAnimation = view.findViewById(R.id.trophyAnimation);
+
+
+
         TextView tvScoreNumber = view.findViewById(R.id.scoreNumber);
 
         setAndValidateScore(tvScoreNumber);
@@ -153,8 +159,6 @@ public class Score extends Fragment {
         Log.d("Score", "Total Score: " + scoreModel.getTotalScore());
 
 
-        //Switches to new instance of Category Fragment
-        //Main issue of code
         ImageButton returnCategoryBtn = view.findViewById(R.id.returnToCategoryBtn);
         returnCategoryBtn.setOnClickListener(v -> {
             reset();
@@ -168,7 +172,8 @@ public class Score extends Fragment {
         });
 
         ImageButton shareBtn = view.findViewById(R.id.shareBtn);
-        //enter logic here
+        //enter logic here for share button
+
 
         return view;
     }
