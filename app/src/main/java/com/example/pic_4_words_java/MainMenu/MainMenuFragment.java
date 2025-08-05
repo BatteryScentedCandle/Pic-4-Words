@@ -58,6 +58,12 @@ public class MainMenuFragment extends Fragment {
         startActivity(intent);
     }
 
+    private void moveToShareGame(){
+        Intent i = new Intent(requireActivity(), GameActivity.class);
+
+
+    }
+
 
 
 
@@ -84,6 +90,11 @@ public class MainMenuFragment extends Fragment {
 
         ImageButton playButton = view.findViewById(R.id.playButton);
         playButton.setOnClickListener(v -> { moveToGameActivity(); });
+
+        ImageButton shareButton =  view.findViewById(R.id.shareButton);
+        shareButton.setOnClickListener( v->{
+            moveToShareGame();
+        });
 
         return view;
     }
