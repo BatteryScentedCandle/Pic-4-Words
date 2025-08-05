@@ -3,6 +3,7 @@ package com.example.pic_4_words_java.MainMenu;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,13 +69,14 @@ public class SettingsFragment extends androidx.fragment.app.Fragment {
 
 
         CheckBox muteCheckbox = view.findViewById(R.id.muteCheckbox);
+        Log.d("Settings", "isMuted: " + BGMSettings.getMuted());
         muteCheckbox.setChecked(BGMSettings.getMuted());
         muteCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
             if(isChecked){
+                com.example.pic_4_words_java.BgmManager.getInstance().setVolume(0);
                 volumeSeekBar.setEnabled(false);
                 BGMSettings.setMuted(true);
-                com.example.pic_4_words_java.BgmManager.getInstance().setVolume(0);
                 volumeSeekBar.setProgress(BGMSettings.getCurrentSeekbarProgress());
             }else{
                 volumeSeekBar.setEnabled(true);

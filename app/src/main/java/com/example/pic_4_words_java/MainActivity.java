@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         com.example.pic_4_words_java.BgmManager.getInstance().playLoopingAudio(MainActivity.this, R.raw.m_b4);
         if(bgmSettings.getCurrentSeekbarProgress() != 100 || bgmSettings.getMuted() == false){
             com.example.pic_4_words_java.BgmManager.getInstance().setVolume(bgmSettings.getCurrentSeekbarProgress());
-        } else if (bgmSettings.getMuted() == true) {
+        } else if (bgmSettings.getCurrentSeekbarProgress() != 100 && bgmSettings.getMuted() == true) {
             com.example.pic_4_words_java.BgmManager.getInstance().setVolume(0);
         }else{
             com.example.pic_4_words_java.BgmManager.getInstance().setVolume(100);

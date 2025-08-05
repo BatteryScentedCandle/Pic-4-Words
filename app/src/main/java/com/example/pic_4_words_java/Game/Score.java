@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,10 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -36,6 +41,8 @@ public class Score extends Fragment {
     private DifficultyModel difficultyModel;
     private String categoryChosen;
     private String difficultyChosen;
+    private Animation zoomInAnim;
+    private Animation zoomOutAnim;
 
 
 
@@ -66,9 +73,36 @@ public class Score extends Fragment {
 
         String scoreField = getScoreField(categoryChosen, difficultyChosen);
         setScoreFieldValue(scoreModel, scoreField, score);
-
         scoreModel.setTotalScore(scoreModel.getTotalScore() + score);
-        tvScoreNumber.setText(String.format("Score: %s", score));
+
+
+        final int animationDuration;
+        animationDuration = 800;
+
+        final int frameRate;
+        frameRate= 30;
+
+        final int steps;
+        steps = Math.max(1, animationDuration / (1000 / frameRate));
+
+        final int increment;
+        increment = Math.max(1, score / steps);
+
+        tvScoreNumber.setText("Score: 0");
+
+        new android.os.Handler().postDelayed(new Runnable() {
+            int currentScore = 0;
+
+            @Override
+            public void run() {
+                if (currentScore < score) {
+                    currentScore = Math.min(currentScore + increment, score);
+                    tvScoreNumber.setText(String.format("Score: %s", currentScore));
+                    new Handler().postDelayed(this, 1000 / frameRate);
+                }
+            }
+        }, 1000 / frameRate);
+
 
         qaModel.setScore(0);
     }
@@ -138,6 +172,20 @@ public class Score extends Fragment {
     }
 
 
+    private void applyZoomAnimation(ImageButton button) {
+        button.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    v.startAnimation(zoomInAnim);
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    v.startAnimation(zoomOutAnim);
+                    break;
+            }
+            return false;
+        });
+    }
 
 
 
@@ -171,6 +219,9 @@ public class Score extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_score, container, false);
 
+        zoomInAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.button_zoom);
+        zoomOutAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.button_unzoom);
+
         LottieAnimationView trophyAnimation = view.findViewById(R.id.trophyAnimation);
 
 
@@ -186,18 +237,21 @@ public class Score extends Fragment {
 
 
         ImageButton returnCategoryBtn = view.findViewById(R.id.returnToCategoryBtn);
+        applyZoomAnimation(returnCategoryBtn);
         returnCategoryBtn.setOnClickListener(v -> {
             reset();
             moveToCategory();
         });
 
         ImageButton mainMenuBtn = view.findViewById(R.id.returnToMainMenuBtn);
+        applyZoomAnimation(mainMenuBtn);
         mainMenuBtn.setOnClickListener(v -> {
             reset();
             moveToMainMenu();
         });
 
         ImageButton shareBtn = view.findViewById(R.id.shareBtn);
+        applyZoomAnimation(shareBtn);
         shareBtn.setOnClickListener(v -> {
             moveToShare();
         });
