@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.pic_4_words_java.Game.GameActivity;
 import com.example.pic_4_words_java.Model.BGMSettings;
@@ -76,7 +77,11 @@ public class MainMenuFragment extends Fragment {
 
         });
 
-
+        ScoreModel scoreModel = new ViewModelProvider(requireActivity()).get(ScoreModel.class);
+        TextView totalScore = view.findViewById(R.id.totalScore);
+        if(scoreModel.getTotalScore() > 0){
+            totalScore.setText("Total Score: " + String.valueOf(scoreModel.getTotalScore()));
+        }
 
         //SETTINGS BUTTON LOGIC
         ImageButton settingsButton = view.findViewById(R.id.settingsButton);

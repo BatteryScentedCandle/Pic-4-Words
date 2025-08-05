@@ -2,10 +2,16 @@ package com.example.pic_4_words_java;
 
 
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
@@ -14,6 +20,8 @@ import com.example.pic_4_words_java.Model.BGMSettings;
 import com.example.pic_4_words_java.Model.ScoreModel;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ScoreModel scoreModel;
 
     private void populateScoreModel(ScoreModel scoreModel){
         int esScore = getIntent().getIntExtra("esScore", 0);
@@ -44,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +62,14 @@ public class MainActivity extends AppCompatActivity {
         MainMenuFragmentStateAdapter adapter = new MainMenuFragmentStateAdapter(this);
         viewPager.setAdapter(adapter);
 
-        ScoreModel scoreModel = new ViewModelProvider(this).get(ScoreModel.class);
+        scoreModel = new ViewModelProvider(this).get(ScoreModel.class);
         populateScoreModel(scoreModel);
 
         BGMSettings bgmSettings = new ViewModelProvider(this).get(BGMSettings.class);
         populateBgmSettings(bgmSettings);
+
+
+
 
         com.example.pic_4_words_java.BgmManager.getInstance().stopAudio();
         com.example.pic_4_words_java.BgmManager.getInstance().playLoopingAudio(MainActivity.this, R.raw.m_b4);
@@ -72,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
 
     @Override

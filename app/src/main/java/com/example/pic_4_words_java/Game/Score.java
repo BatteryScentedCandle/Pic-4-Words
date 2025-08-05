@@ -62,10 +62,34 @@ public class Score extends Fragment {
 
 
     private void setScoreFieldValue(ScoreModel scoreModel, String scoreField, int score){
-        if(scoreField.equalsIgnoreCase("esScore")) scoreModel.setEsScore(score);
-        if(scoreField.equalsIgnoreCase("hsScore")) scoreModel.setHsScore(score);
-        if(scoreField.equalsIgnoreCase("ebScore")) scoreModel.setEbScore(score);
-        if(scoreField.equalsIgnoreCase("hbScore")) scoreModel.setHbScore(score);
+        if(scoreField.equalsIgnoreCase("esScore")) {
+            if(scoreModel.getEsScore() != 0){
+                int tmpTotal = scoreModel.getTotalScore();
+                scoreModel.setTotalScore(tmpTotal - scoreModel.getTotalScore());
+            }
+            scoreModel.setEsScore(score);
+        }
+        if(scoreField.equalsIgnoreCase("hsScore")){
+            if(scoreModel.getHsScore() != 0){
+                int tmpTotal = scoreModel.getTotalScore();
+                scoreModel.setTotalScore(tmpTotal - scoreModel.getTotalScore());
+            }
+            scoreModel.setHsScore(score);
+        }
+        if(scoreField.equalsIgnoreCase("ebScore")){
+            if(scoreModel.getEbScore() != 0){
+                int tmpTotal = scoreModel.getTotalScore();
+                scoreModel.setTotalScore(tmpTotal - scoreModel.getTotalScore());
+            }
+            scoreModel.setEbScore(score);
+        }
+        if(scoreField.equalsIgnoreCase("hbScore")){
+            if(scoreModel.getHbScore() != 0){
+                int tmpTotal = scoreModel.getTotalScore();
+                scoreModel.setTotalScore(tmpTotal - scoreModel.getTotalScore());
+            }
+            scoreModel.setHbScore(score);
+        }
     }
 
     private void setAndValidateScore(TextView tvScoreNumber){
