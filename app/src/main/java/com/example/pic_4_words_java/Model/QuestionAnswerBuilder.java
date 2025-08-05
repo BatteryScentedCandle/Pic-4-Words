@@ -58,15 +58,15 @@ public class QuestionAnswerBuilder {
                 "ebQ2",
                 "https://i.imgur.com/5imhCMs.jpeg",
                 "https://i.imgur.com/w6wdCz9.png",
-                "",
-                "");
+                "https://i.imgur.com/V6WML55.png",
+                "https://i.imgur.com/LF4B2Ck.png");
 
         addToMap(sourceImages,
                 "ebQ3",
                 "https://i.imgur.com/Nd66UdA.jpeg",
                 "https://i.imgur.com/B30vAyg.jpeg",
                 "https://i.imgur.com/qXbjXkJ.jpeg",
-                "");
+                "https://i.imgur.com/FoHg5N2.png");
         qaModel.setImages(sourceImages);
 
 
@@ -94,21 +94,21 @@ public class QuestionAnswerBuilder {
                 "https://i.imgur.com/ngcAxu0.jpeg",
                 "https://i.imgur.com/ptoZqL0.jpeg",
                 "https://i.imgur.com/aDr7GF0.jpeg",
-                "");
+                "https://i.imgur.com/DB4xHVK.png");
 
         addToMap(sourceImages,
                 "hbQ2",
                 "https://i.imgur.com/WUzXtfF.jpeg",
                 "https://i.imgur.com/M9tBDXP.jpeg",
                 "https://i.imgur.com/oipSzGB.jpeg",
-                "");
+                "https://i.imgur.com/RrmmFkB.png");
 
         addToMap(sourceImages,
                 "hbQ3",
                 "https://i.imgur.com/IM2ptmw.jpeg",
                 "https://i.imgur.com/Snbu7oQ.jpeg",
                 "https://i.imgur.com/egoBmKK.jpeg",
-                "");
+                "https://i.imgur.com/9DSk6RS.png");
         qaModel.setImages(sourceImages);
 
 
@@ -135,15 +135,15 @@ public class QuestionAnswerBuilder {
                 "esQ1",
                 "https://i.imgur.com/JJS0gFv.jpeg",
                 "https://i.imgur.com/pbWu92c.jpeg",
-                "",
-                "");
+                "https://i.imgur.com/eUMjVBn.png",
+                "https://i.imgur.com/RgKPGlb.png");
 
         addToMap(sourceImages,
                 "esQ2",
                 "https://i.imgur.com/dtvXILx.jpeg",
                 "https://i.imgur.com/TgqIfsH.jpeg",
                 "https://i.imgur.com/dnXwJW7.jpeg",
-                "");
+                "https://imgur.com/a/wZBEawM");
 
         addToMap(sourceImages,
                 "esQ3",
@@ -176,8 +176,8 @@ public class QuestionAnswerBuilder {
                 "hsQ1",
                 "https://i.imgur.com/CrtAR4i.jpeg",
                 "https://i.imgur.com/OAjzPa3.jpeg",
-                "",
-                "" );
+                "https://i.imgur.com/Pp0qzXT.png",
+                "https://i.imgur.com/b54exNu.png" );
 
         addToMap(sourceImages,
                 "hsQ2",
@@ -192,7 +192,7 @@ public class QuestionAnswerBuilder {
                 "https://i.imgur.com/OVvd8ai.jpeg",
                 "https://i.imgur.com/uPyXma7.gif",
                 "https://i.imgur.com/UmGMJVI.jpeg",
-                "" );
+                "https://i.imgur.com/IvzqGCc.png" );
         qaModel.setImages(sourceImages);
 
 
