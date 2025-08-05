@@ -90,8 +90,17 @@ public class Score extends Fragment {
     }
 
     public void moveToCategory(){
-        com.example.pic_4_words_java.BgmManager.getInstance().stopAudio();
+        BGMSettings bgmSettings = new ViewModelProvider(requireActivity()).get(BGMSettings.class);
+
+        BgmManager.getInstance().stopAudio();
         BgmManager.getInstance().playLoopingAudio(this.getContext(), R.raw.m_b4);
+
+        if(bgmSettings.getMuted() == false){
+            BgmManager.getInstance().setVolume(bgmSettings.getCurrentSeekbarProgress());
+        }else{
+            BgmManager.getInstance().setVolume(0);
+        }
+
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.flFragmentContainer, new Category());
         transaction.commit();
@@ -107,6 +116,13 @@ public class Score extends Fragment {
         intent.putExtra("ebScore", scoreModel.getEbScore());
         intent.putExtra("hbScore", scoreModel.getHbScore());
         intent.putExtra("totalScore", scoreModel.getTotalScore());
+
+        BGMSettings bgmSettings = new ViewModelProvider(requireActivity()).get(BGMSettings.class);
+        intent.putExtra("progress", bgmSettings.getCurrentSeekbarProgress());
+        intent.putExtra("muted", bgmSettings.getMuted());
+
+        Log.d("GameActivity", "Progress: " + bgmSettings.getCurrentSeekbarProgress());
+        Log.d("GameActivity", "Muted: " + bgmSettings.getMuted());
 
         startActivity(intent);
     }

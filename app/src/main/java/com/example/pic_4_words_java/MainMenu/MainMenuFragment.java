@@ -41,7 +41,7 @@ public class MainMenuFragment extends Fragment {
         Intent intent = new Intent(requireActivity(), GameActivity.class);
 
         BGMSettings BGMSettings = new ViewModelProvider(requireActivity()).get(BGMSettings.class);
-        if(BGMSettings.getCurrentSeekbarProgress() == 0){
+        if(BGMSettings.getCurrentSeekbarProgress() == 0 && BGMSettings.getMuted() == false){
             BGMSettings.setCurrentSeekbarProgress(100);
         }
 

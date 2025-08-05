@@ -70,6 +70,7 @@ public class SettingsFragment extends androidx.fragment.app.Fragment {
         CheckBox muteCheckbox = view.findViewById(R.id.muteCheckbox);
         muteCheckbox.setChecked(BGMSettings.getMuted());
         muteCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
             if(isChecked){
                 volumeSeekBar.setEnabled(false);
                 BGMSettings.setMuted(true);

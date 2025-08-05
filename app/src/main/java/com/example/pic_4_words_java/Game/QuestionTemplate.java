@@ -411,14 +411,12 @@ public class QuestionTemplate extends Fragment {
                 qaModel.setTempDifficulty(difficultyChosen);
                 qaModel.setTempCurrentQuestion(qaModel.getCurrentQuestionCount());
 
-                com.example.pic_4_words_java.BgmManager.getInstance().stopAudio();
                 qViewModel.resetViewModel();
                 qaModel.resetQAModel();
 
                 FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.flFragmentContainer, new Difficulty());
                 transaction.commit();
-//                BgmManager.getInstance().playLoopingAudio(this.getContext(), R.raw.m_b4);
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(requireActivity(), onBackPressedCallback);
