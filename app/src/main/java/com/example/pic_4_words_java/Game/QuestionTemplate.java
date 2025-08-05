@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -20,7 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
-import com.example.pic_4_words_java.CustomMediaPlayer;
+import com.example.pic_4_words_java.BgmManager;
 import com.example.pic_4_words_java.Model.CategoryModel;
 import com.example.pic_4_words_java.Model.DifficultyModel;
 import com.example.pic_4_words_java.Model.QuestionAnswerBuilder;
@@ -108,6 +109,16 @@ public class QuestionTemplate extends Fragment {
         outputResult.setVisibility(View.VISIBLE);
     }
 
+/* <<<<<<<<<<<<<<  ✨ Windsurf Command ⭐ >>>>>>>>>>>>>>>> */
+    /**
+     * Compares the user's answer with the current answer
+     * and calls either handleCorrectAnswer or handleWrongAnswer
+     *
+     * @param outputResult the TextView to display the output
+     * @param userInput the EditText to get the user's answer from
+     * @param nextQuestionBtn the ImageButton to make visible or not
+     */
+/* <<<<<<<<<<  87481ffc-f7ea-4eb0-93cb-a0eac2d11305  >>>>>>>>>>> */
     public void isCorrectAnswer(TextView outputResult, EditText userInput, ImageButton nextQuestionBtn){
         String userInputAnswer = userInput.getText().toString();
         String currentAnswer = answers.get(currentQuestion);
@@ -121,50 +132,6 @@ public class QuestionTemplate extends Fragment {
         }else{
             Log.d("Current Answer", "Answer is null");
         }
-    }
-
-
-
-    public void checkAnswer(TextView outputResult, EditText userInput, ImageButton nextQuestionBtn){
-//        int currentQuestion = qaModel.getCurrentQuestionCount();
-
-        userInput.setOnEditorActionListener((v, actionId, event) -> {
-
-            if(event != null && event.getAction() == KeyEvent.ACTION_DOWN){
-                if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
-
-                    isCorrectAnswer(outputResult, userInput, nextQuestionBtn);
-
-                    return true;
-                }
-            }return false;
-
-        });
-    }
-
-
-
-
-
-
-
-    private void moveToNextFragment(ImageButton nextQuestionBtn){
-        nextQuestionBtn.setOnClickListener(v -> {
-            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-
-            if(qaModel.getCurrentQuestionCount() < 2){
-                qaModel.incrementQuestionCount();
-                transaction.replace(R.id.flFragmentContainer, new QuestionTemplate()).commit();
-            }else{
-
-                //reset models to ensure no overlapping, move to scre
-                CustomMediaPlayer.getInstance().stopAudio();
-                qViewModel.resetViewModel();
-                qaModel.resetQAModel();
-                transaction.replace(R.id.flFragmentContainer, new Score()).commit();
-            }
-
-        });
     }
 
 
@@ -198,14 +165,6 @@ public class QuestionTemplate extends Fragment {
 
 
 
-
-
-
-
-
-
-    //handlers
-
     public void currentQuestionHandler(int question, ImageButton nextQuestionBtn) {
         try {
             if (allImages != null && allImageKeys != null && question >= 0 && question < allImageKeys.size()) {
@@ -216,8 +175,8 @@ public class QuestionTemplate extends Fragment {
                 }
             } else {
                 Log.d("CurrentQuestion", "Invalid question index or null data. Question: " + question +
-                      ", allImageKeys: " + (allImageKeys != null ? allImageKeys.size() : "null") +
-                      ", allImages: " + (allImages != null ? allImages.size() : "null"));
+                        ", allImageKeys: " + (allImageKeys != null ? allImageKeys.size() : "null") +
+                        ", allImages: " + (allImages != null ? allImages.size() : "null"));
                 moveToNextFragment(nextQuestionBtn);
             }
         } catch (Exception e) {
@@ -254,6 +213,82 @@ public class QuestionTemplate extends Fragment {
         handlerLogic(nextQuestionBtn);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //validation and navigation
+    public void checkAnswer(TextView outputResult, EditText userInput, ImageButton nextQuestionBtn){
+//        int currentQuestion = qaModel.getCurrentQuestionCount();
+
+        userInput.setOnEditorActionListener((v, actionId, event) -> {
+
+            if(event != null && event.getAction() == KeyEvent.ACTION_DOWN){
+                if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+
+                    isCorrectAnswer(outputResult, userInput, nextQuestionBtn);
+
+                    return true;
+                }
+            }return false;
+
+        });
+    }
+    private void moveToNextFragment(ImageButton nextQuestionBtn){
+        nextQuestionBtn.setOnClickListener(v -> {
+            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+
+
+            //this part aint working
+            if(qaModel.getTempCurrentQuestion()!=0 && qaModel.getTempDifficulty().equalsIgnoreCase(difficultyChosen)){
+                qaModel.setCurrentQuestionCount(qaModel.getTempCurrentQuestion());
+            }
+
+
+
+
+
+            if(qaModel.getCurrentQuestionCount() < 2){
+                qaModel.incrementQuestionCount();
+                transaction.replace(R.id.flFragmentContainer, new QuestionTemplate()).commit();
+            }else{
+
+                //reset models to ensure no overlapping, move to scre
+                com.example.pic_4_words_java.BgmManager.getInstance().stopAudio();
+                qViewModel.resetViewModel();
+                qaModel.resetQAModel();
+                transaction.replace(R.id.flFragmentContainer, new Score()).commit();
+            }
+
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //handlers
     public void brainrotQuestionHandler(ImageButton nextQuestionBtn) {
         QuestionAnswerModel builder = null;
 
@@ -331,18 +366,28 @@ public class QuestionTemplate extends Fragment {
 
 
 
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        int menuAudio = R.raw.m_b4;
 
-        //checks if CustomMediaPlayer is playing m_b4
-        if(CustomMediaPlayer.getInstance().getAudioFile() == menuAudio){
-            CustomMediaPlayer.getInstance().stopAudio();
-            CustomMediaPlayer.getInstance().playLoopingAudio(this.getContext(), R.raw.m_b1);
-            CustomMediaPlayer.getInstance().setVolume(BGMSettings.getMuted() ? 0 : BGMSettings.getCurrentSeekbarProgress());
+        Log.d("Audio", "Audio: " + com.example.pic_4_words_java.BgmManager.getInstance().getAudioFile());
+        Log.d("Volume", "Volume: " + com.example.pic_4_words_java.BgmManager.getInstance().getVolume());
+
+        //checks if BgmManager is playing m_b4
+        if(BgmManager.getInstance().getAudioFile() == R.raw.m_b4 || com.example.pic_4_words_java.BgmManager.getInstance().getAudioFile() == 0){
+            com.example.pic_4_words_java.BgmManager.getInstance().stopAudio();
+            com.example.pic_4_words_java.BgmManager.getInstance().playLoopingAudio(this.getContext(), R.raw.m_b1);
+            com.example.pic_4_words_java.BgmManager.getInstance().setVolume(BGMSettings.getMuted() ? 0 : BGMSettings.getCurrentSeekbarProgress());
         }
+
+        Log.d("Audio", "Audio: " + com.example.pic_4_words_java.BgmManager.getInstance().getAudioFile());
+        Log.d("Volume", "Volume: " + com.example.pic_4_words_java.BgmManager.getInstance().getVolume());
     }
+
+
+
     //main code
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -369,9 +414,33 @@ public class QuestionTemplate extends Fragment {
         difficultyChosen = difficultyModel.getDifficultyChosen();
         currentQuestion = qaModel.getCurrentQuestionCount();
 
+        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                //issue
+                //stops audio of menu
+                //doesn't play audio of question even after playing it
+
+                qaModel.setTempDifficulty(difficultyChosen);
+                qaModel.setTempCurrentQuestion(qaModel.getCurrentQuestionCount());
+
+                com.example.pic_4_words_java.BgmManager.getInstance().stopAudio();
+                qViewModel.resetViewModel();
+                qaModel.resetQAModel();
+
+                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.flFragmentContainer, new Difficulty());
+                transaction.commit();
+//                BgmManager.getInstance().playLoopingAudio(this.getContext(), R.raw.m_b4);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(requireActivity(), onBackPressedCallback);
+
         //debugging
         Log.d("Category", "Category chosen: " + categoryChosen);
         Log.d("Difficulty", "Difficulty chosen: " + difficultyChosen);
+        Log.d("Difficulty", "Temp Difficulty: " + qaModel.getTempDifficulty());
+        Log.d("Current Question", "Temp Question: " + qaModel.getTempCurrentQuestion());
     }
 
     //very self-explanatory code
@@ -388,7 +457,6 @@ public class QuestionTemplate extends Fragment {
         //views
         TextView tvDifficultyCategory = view.findViewById(R.id.tvDifficultyCategory);
         tvDifficultyCategory.setText(qViewModel.getTvDifficultyCategoryContent());
-
         TextView tvLevel = view.findViewById(R.id.tvLevel);
         tvLevel.setText(qViewModel.getTvLevelContent());
 
@@ -398,7 +466,6 @@ public class QuestionTemplate extends Fragment {
         ImageView topRight = view.findViewById(R.id.topRight);
         ImageView botLeft = view.findViewById(R.id.botLeft);
         ImageView botRight = view.findViewById(R.id.botRight);
-
         Glide.with(this).load(questionImages.get(0)).override(300, 300).centerCrop().placeholder(R.drawable.ic_launcher_background).into(topLeft);
         Glide.with(this).load(questionImages.get(1)).override(300, 300).centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(topRight);
         Glide.with(this).load(questionImages.get(2)).override(300, 300).centerCrop().placeholder(R.drawable.ic_launcher_background).into(botLeft);

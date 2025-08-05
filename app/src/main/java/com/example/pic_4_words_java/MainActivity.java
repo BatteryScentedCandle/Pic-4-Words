@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
 
 
-        CustomMediaPlayer.getInstance().stopAudio();
-        CustomMediaPlayer.getInstance().playLoopingAudio(MainActivity.this, R.raw.m_b4);
-        CustomMediaPlayer.getInstance().setVolume(100);
+        com.example.pic_4_words_java.BgmManager.getInstance().stopAudio();
+        com.example.pic_4_words_java.BgmManager.getInstance().playLoopingAudio(MainActivity.this, R.raw.m_b4);
+        com.example.pic_4_words_java.BgmManager.getInstance().setVolume(100);
 
         ScoreModel scoreModel = new ViewModelProvider(this).get(ScoreModel.class);
         populateScoreModel(scoreModel);
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        CustomMediaPlayer.getInstance().stopAudio();
-        CustomMediaPlayer.getInstance().mediaPlayer.release();
+        com.example.pic_4_words_java.BgmManager.getInstance().stopAudio();
+        com.example.pic_4_words_java.BgmManager.getInstance().mediaPlayer.release();
     }
 }

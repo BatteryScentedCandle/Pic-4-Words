@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.pic_4_words_java.CustomMediaPlayer;
+import com.example.pic_4_words_java.BgmManager;
 import com.example.pic_4_words_java.Model.BGMSettings;
 import com.example.pic_4_words_java.Model.CategoryModel;
 import com.example.pic_4_words_java.Model.DifficultyModel;
@@ -89,15 +89,15 @@ public class Score extends Fragment {
     }
 
     public void moveToCategory(){
-        CustomMediaPlayer.getInstance().stopAudio();
-        CustomMediaPlayer.getInstance().playLoopingAudio(this.getContext(), R.raw.m_b4);
+        com.example.pic_4_words_java.BgmManager.getInstance().stopAudio();
+        BgmManager.getInstance().playLoopingAudio(this.getContext(), R.raw.m_b4);
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.flFragmentContainer, new Category());
         transaction.commit();
     }
 
     public void moveToMainMenu(){
-        CustomMediaPlayer.getInstance().stopAudio();
+        com.example.pic_4_words_java.BgmManager.getInstance().stopAudio();
         Intent intent = new Intent(requireActivity(), MainActivity.class);
 
         ScoreModel scoreModel = new ViewModelProvider(requireActivity()).get(ScoreModel.class);
@@ -178,7 +178,7 @@ public class Score extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         BGMSettings BGMSettings = new ViewModelProvider(requireActivity()).get(BGMSettings.class);
-        CustomMediaPlayer.getInstance().playAudio(this.getContext(), R.raw.score_audio);
-        CustomMediaPlayer.getInstance().setVolume(BGMSettings.getMuted() ? 0 : BGMSettings.getCurrentSeekbarProgress());
+        com.example.pic_4_words_java.BgmManager.getInstance().playAudio(this.getContext(), R.raw.score_audio);
+        com.example.pic_4_words_java.BgmManager.getInstance().setVolume(BGMSettings.getMuted() ? 0 : BGMSettings.getCurrentSeekbarProgress());
     }
 }

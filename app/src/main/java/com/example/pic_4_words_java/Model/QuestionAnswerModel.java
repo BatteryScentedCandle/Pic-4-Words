@@ -10,10 +10,26 @@ import java.util.List;
 
 public class QuestionAnswerModel extends ViewModel {
 
+    private String tempDifficulty;
+    private int tempCurrentQuestion;
+
     private int currentQuestionCount;
     private List<String > answer;
     private LinkedHashMap<String, List<String>> images = new LinkedHashMap<>();
     private int score;
+
+    public String getTempDifficulty() {
+        return tempDifficulty;
+    }
+    public void setTempDifficulty(String tempDifficulty) {
+        this.tempDifficulty = tempDifficulty;
+    }
+    public int getTempCurrentQuestion() {
+        return tempCurrentQuestion;
+    }
+    public void setTempCurrentQuestion(int tempCurrentQuestion) {
+        this.tempCurrentQuestion = tempCurrentQuestion;
+    }
 
     public int getScore() {
         return score;
@@ -29,6 +45,9 @@ public class QuestionAnswerModel extends ViewModel {
         this.images.putAll(sourceMap);
     }
 
+    public void setCurrentQuestionCount(int currentQuestionCount) {
+        this.currentQuestionCount = currentQuestionCount;
+    }
     public void incrementQuestionCount(){ ++ currentQuestionCount;}
 
     public void resetQuestionCount(){ currentQuestionCount = 0; }

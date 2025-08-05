@@ -6,8 +6,8 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.util.Log;
 
-public class CustomMediaPlayer {
-    private static CustomMediaPlayer Instance;
+public class BgmManager {
+    private static BgmManager Instance;
     private static int audioFileName;
     private static float volume = 1.0f;
     MediaPlayer mediaPlayer;
@@ -32,9 +32,9 @@ public class CustomMediaPlayer {
 
     //creates new instance if it does not exist
     //returns existing instance if exists
-    public static CustomMediaPlayer getInstance(){
+    public static BgmManager getInstance(){
         if(Instance == null){
-            return Instance = new CustomMediaPlayer();
+            return Instance = new BgmManager();
         }
         return Instance;
     }

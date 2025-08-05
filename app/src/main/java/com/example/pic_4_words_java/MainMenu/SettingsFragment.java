@@ -13,7 +13,7 @@ import android.widget.SeekBar;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.pic_4_words_java.CustomMediaPlayer;
+import com.example.pic_4_words_java.BgmManager;
 import com.example.pic_4_words_java.MainActivity;
 import com.example.pic_4_words_java.Model.BGMSettings;
 import com.example.pic_4_words_java.R;
@@ -39,9 +39,9 @@ public class SettingsFragment extends androidx.fragment.app.Fragment {
 
 
         //process for after user inputs on seekbar and/or checkbox
-        if(CustomMediaPlayer.getInstance().getVolume() != 0 && BGMSettings.getCurrentSeekbarProgress() !=  0){
-            CustomMediaPlayer.getInstance().setVolume(BGMSettings.getCurrentSeekbarProgress());
-            volumeSeekBar.setProgress(CustomMediaPlayer.getInstance().getVolume());
+        if(BgmManager.getInstance().getVolume() != 0 && BGMSettings.getCurrentSeekbarProgress() !=  0){
+            com.example.pic_4_words_java.BgmManager.getInstance().setVolume(BGMSettings.getCurrentSeekbarProgress());
+            volumeSeekBar.setProgress(com.example.pic_4_words_java.BgmManager.getInstance().getVolume());
         }
         if(BGMSettings.getMuted()){
             volumeSeekBar.setProgress(BGMSettings.getCurrentSeekbarProgress());
@@ -54,7 +54,7 @@ public class SettingsFragment extends androidx.fragment.app.Fragment {
         volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                CustomMediaPlayer.getInstance().setVolume(progress);
+                com.example.pic_4_words_java.BgmManager.getInstance().setVolume(progress);
                 BGMSettings.setCurrentSeekbarProgress(progress);
             }
             @Override
@@ -73,13 +73,13 @@ public class SettingsFragment extends androidx.fragment.app.Fragment {
             if(isChecked){
                 volumeSeekBar.setEnabled(false);
                 BGMSettings.setMuted(true);
-                CustomMediaPlayer.getInstance().setVolume(0);
+                com.example.pic_4_words_java.BgmManager.getInstance().setVolume(0);
                 volumeSeekBar.setProgress(BGMSettings.getCurrentSeekbarProgress());
             }else{
                 volumeSeekBar.setEnabled(true);
                 BGMSettings.setMuted(false);
-                CustomMediaPlayer.getInstance().setVolume(BGMSettings.getCurrentSeekbarProgress());
-                volumeSeekBar.setProgress(CustomMediaPlayer.getInstance().getVolume());
+                com.example.pic_4_words_java.BgmManager.getInstance().setVolume(BGMSettings.getCurrentSeekbarProgress());
+                volumeSeekBar.setProgress(com.example.pic_4_words_java.BgmManager.getInstance().getVolume());
             }
         });
 
