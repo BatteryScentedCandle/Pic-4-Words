@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.pic_4_words_java.Game.Score;
 import com.example.pic_4_words_java.MainMenu.Leaderboard.LeaderboardAdapter;
 import com.example.pic_4_words_java.MainMenu.Leaderboard.UserScore;
 import com.example.pic_4_words_java.R;
