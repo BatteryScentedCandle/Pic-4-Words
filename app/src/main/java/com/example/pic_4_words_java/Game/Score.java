@@ -110,6 +110,10 @@ public class Score extends Fragment {
         startActivity(intent);
     }
 
+    public void saveToDatabase(){
+
+    }
+
 
 
 

@@ -38,6 +38,8 @@ dependencies {
     implementation(libs.legacy.support.v4)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.auth)
     annotationProcessor (libs.compiler)
     implementation(libs.appcompat)
     implementation(libs.material)

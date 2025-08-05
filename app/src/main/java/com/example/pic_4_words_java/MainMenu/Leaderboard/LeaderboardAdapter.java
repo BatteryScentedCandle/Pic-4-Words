@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pic_4_words_java.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -31,10 +33,11 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         UserScore score = scores.get(position);
         holder.rank.setText(String.valueOf(position + 1));
         holder.username.setText(score.getUsername());
-        holder.points.setText(String.valueOf(score.getScore()));
+        holder.userScore.setText(String.valueOf(score.getScore()));
     }
 
     @Override
@@ -43,13 +46,13 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView rank, username, points;
+        TextView rank, username, userScore;
 
         public ViewHolder(View itemView) {
             super(itemView);
             rank = itemView.findViewById(R.id.rankTextView);
             username = itemView.findViewById(R.id.usernameTextView);
-            points = itemView.findViewById(R.id.scoreTextView);
+            userScore = itemView.findViewById(R.id.scoreTextView);
         }
     }
 }

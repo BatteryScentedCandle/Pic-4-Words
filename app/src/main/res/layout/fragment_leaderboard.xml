@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:background="@color/game_background">
     <!--    android:background="@color/app_background"-->
 
     <LinearLayout
@@ -15,8 +16,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="leaderboard"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:typeface="monospace"
             android:textAlignment="center"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/holo_green_dark"
             android:paddingTop="54sp"
             android:paddingBottom="20sp"
             android:textSize="24sp"/>
