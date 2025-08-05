@@ -8,13 +8,23 @@
     <string name="correctAnswer">Correct</string>
     <string name="wrongAnswer">Wrong</string>
 
+    <!-- category_difficulty -->
+    <string name="category">Select Category</string>
+    <string name="superhero">Superhero</string>
+    <string name="brainrot">Brainrot</string>
+
+    <!-- fragment_difficulty -->
+    <string name="difficulty">Select Difficulty</string>
+    <string name="easy">Easy</string>
+    <string name="hard">Hard</string>
+    <!-- MAIN MENU -->
+    <string name="game_title">PIC-4-WORDS</string>
+    <string name="settings_btn">Settings</string>
+    <string name="play_btn">Play</string>
+    <string name="share_btn">Share</string>
 
     <string name="mute">Mute</string>
     <string name="music_volume">Music Volume</string>
     <string name="settings">Settings</string>
     <string name="close_settings">Close Settings</string>
-    <string name="game_title">PIC-4-WORDS</string>
-    <string name="settings_btn">Settings</string>
-    <string name="play_btn">Play</string>
-    <string name="share_btn">Share</string>
 </resources>

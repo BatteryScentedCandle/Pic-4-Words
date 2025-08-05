@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.Pic4WordsJava" parent="Base.Theme.Pic4WordsJava" />
+<!-- res/values/themes.xml -->
+    <style name="Base.Theme.YourAppName" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
 </resources>

@@ -39,12 +39,12 @@ public class Difficulty extends Fragment {
 
 
         //Button clicks
-        Button easyBtn = view.findViewById(R.id.easyBtn);
+        Button easyBtn = view.findViewById(R.id.easyDifficultyBtn);
         easyBtn.setOnClickListener(v -> {
             difficultyModel.setDifficultyChosen("Easy");
             goToQuestionFragment();
         });
-        Button hardBtn = view.findViewById(R.id.hardBtn);
+        Button hardBtn = view.findViewById(R.id.hardDifficultyBtn);
         hardBtn.setOnClickListener(v -> {
             difficultyModel.setDifficultyChosen("Hard");
             goToQuestionFragment();
