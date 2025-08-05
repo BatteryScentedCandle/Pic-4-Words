@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.pic_4_words_java.Model.VolumeDetailsCopy;
+import com.example.pic_4_words_java.Model.BGMSettings;
 import com.example.pic_4_words_java.R;
 
 public class GameActivity extends AppCompatActivity {
@@ -29,9 +29,9 @@ public class GameActivity extends AppCompatActivity {
         int progress = getIntent().getIntExtra("progress", 100);
         boolean isMuted = getIntent().getBooleanExtra("muted", false);
 
-        VolumeDetailsCopy volumeDetails = new ViewModelProvider(this).get(VolumeDetailsCopy.class);
-        volumeDetails.setCurrentSeekbarProgress(progress);
-        volumeDetails.setMuted(isMuted);
+        BGMSettings BGMSettings = new ViewModelProvider(this).get(BGMSettings.class);
+        BGMSettings.setCurrentSeekbarProgress(progress);
+        BGMSettings.setMuted(isMuted);
 
         Log.d("GameActivity", "Progress: " + progress);
         Log.d("GameActivity", "Muted: " + isMuted);
