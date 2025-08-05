@@ -54,6 +54,7 @@ public class LeaderboardFragment extends Fragment {
         return view;
     }
 
+    //loads scores from firebase
     private void loadLeaderboard(){
         db.collection("userscores")
                 .get()

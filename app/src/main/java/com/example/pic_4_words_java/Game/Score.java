@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pic_4_words_java.CustomMediaPlayer;
 import com.example.pic_4_words_java.Model.BGMSettings;
@@ -26,6 +27,10 @@ import com.example.pic_4_words_java.Model.QuestionAnswerModel;
 import com.example.pic_4_words_java.Model.ScoreModel;
 import com.example.pic_4_words_java.MainActivity;
 import com.example.pic_4_words_java.R;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Score extends Fragment {
 
@@ -110,25 +115,22 @@ public class Score extends Fragment {
         startActivity(intent);
     }
 
-    public void saveToDatabase(){
+    private void saveToFirebase(String nameOfUser, int scoreOfUser){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        Map<String, Object> dbScore = new HashMap<>();
+        dbScore.put("username", nameOfUser);
+        dbScore.put("score", scoreOfUser);
+
+        db.collection("userscores")
+                .add(dbScore)
+                .addOnSuccessListener(documentReference -> {
+                    Toast.makeText(getContext(), "User registered to leaderboard", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e ->{
+                    Toast.makeText(getContext(), "User not registered to leaderboard", Toast.LENGTH_SHORT).show();
+                });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     //main code
     @Override
@@ -156,6 +158,8 @@ public class Score extends Fragment {
         Log.d("Score", "hbScore: " + scoreModel.getHbScore());
         Log.d("Score", "Total Score: " + scoreModel.getTotalScore());
 
+        //temporary name
+        saveToFirebase("score", scoreModel.getTotalScore());
 
         //Switches to new instance of Category Fragment
         //Main issue of code
