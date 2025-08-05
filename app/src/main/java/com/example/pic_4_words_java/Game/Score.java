@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.pic_4_words_java.BgmManager;
-import com.example.pic_4_words_java.MainMenu.SettingsFragment;
 import com.example.pic_4_words_java.Model.BGMSettings;
 import com.example.pic_4_words_java.Model.CategoryModel;
 import com.example.pic_4_words_java.Model.DifficultyModel;
@@ -184,7 +183,6 @@ public class Score extends Fragment {
 
         ImageButton shareBtn = view.findViewById(R.id.shareBtn);
         shareBtn.setOnClickListener(v -> {
-            reset();
             moveToShare();
         });
 
