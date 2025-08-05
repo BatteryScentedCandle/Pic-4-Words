@@ -92,9 +92,6 @@ public class QuestionTemplate extends Fragment {
         moveToNextFragment(nextQuestionBtn);
 
 
-        //debugging
-        Log.d("New Score", "Question Score: " + newScore);
-        Log.d("Total Score", "Total Score: " + qaModel.getScore());
     }
 
 
@@ -109,16 +106,6 @@ public class QuestionTemplate extends Fragment {
         outputResult.setVisibility(View.VISIBLE);
     }
 
-/* <<<<<<<<<<<<<<  ✨ Windsurf Command ⭐ >>>>>>>>>>>>>>>> */
-    /**
-     * Compares the user's answer with the current answer
-     * and calls either handleCorrectAnswer or handleWrongAnswer
-     *
-     * @param outputResult the TextView to display the output
-     * @param userInput the EditText to get the user's answer from
-     * @param nextQuestionBtn the ImageButton to make visible or not
-     */
-/* <<<<<<<<<<  87481ffc-f7ea-4eb0-93cb-a0eac2d11305  >>>>>>>>>>> */
     public void isCorrectAnswer(TextView outputResult, EditText userInput, ImageButton nextQuestionBtn){
         String userInputAnswer = userInput.getText().toString();
         String currentAnswer = answers.get(currentQuestion);

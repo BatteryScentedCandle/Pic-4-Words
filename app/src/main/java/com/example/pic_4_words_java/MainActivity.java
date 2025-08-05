@@ -3,6 +3,8 @@ package com.example.pic_4_words_java;
 
 
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
         scoreModel.setHbScore(hbScore);
         scoreModel.setEbScore(ebScore);
         scoreModel.setTotalScore(totalScore);
+
+        Log.d("MainActivity", "esScore: " + esScore);
+        Log.d("MainActivity", "hsScore: " + hsScore);
+        Log.d("MainActivity", "hbScore: " + hbScore);
+        Log.d("MainActivity", "ebScore: " + ebScore);
+        Log.d("MainActivity", "totalScore: " + totalScore);
     }
 
 
