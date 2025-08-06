@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="button_fill">#71AD2A</color>
+    <color name="button_border">#00FFAA</color>
+    <color name="button_shadow">#008066</color>
+    <color name="game_background">#192B59</color>
+    <color name="splash_screen_intro_background">#192B59</color>
+
+
+    <color name="category_button_fill">#8CFFDB</color>
+</resources>

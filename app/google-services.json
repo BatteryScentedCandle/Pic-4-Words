@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "536937553243",
+    "project_id": "pic-4-words-bcddd",
+    "storage_bucket": "pic-4-words-bcddd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:536937553243:android:36794c6d64e65c6a7d0e7e",
+        "android_client_info": {
+          "package_name": "com.example.pic_4_words_java"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1WSue4wQENG_-ZTKHiAVfPjw5f_-kh-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

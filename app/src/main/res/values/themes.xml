@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="Theme.Pic4WordsJava" parent="Theme.AppCompat.Light.NoActionBar" />
+<!-- res/values/themes.xml -->
+
+</resources>

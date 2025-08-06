@@ -1,0 +1,115 @@
+package com.example.pic_4_words_java.MainMenu;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.example.pic_4_words_java.Game.GameActivity;
+import com.example.pic_4_words_java.Model.BGMSettings;
+import com.example.pic_4_words_java.Model.ScoreModel;
+import com.example.pic_4_words_java.R;
+
+public class MainMenuFragment extends Fragment {
+
+    //helper methods
+    private void moveToSettings(){
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.popup_enter, 0)
+                .replace(android.R.id.content, new SettingsFragment())
+                .addToBackStack(null)
+                .commit();
+    }
+
+
+
+
+    private void moveToGameActivity(){
+        Intent intent = new Intent(requireActivity(), GameActivity.class);
+
+        BGMSettings BGMSettings = new ViewModelProvider(requireActivity()).get(BGMSettings.class);
+        if(BGMSettings.getCurrentSeekbarProgress() == 0 && BGMSettings.getMuted() == false){
+            BGMSettings.setCurrentSeekbarProgress(100);
+        }
+
+        intent.putExtra("progress", BGMSettings.getCurrentSeekbarProgress());
+        intent.putExtra("muted", BGMSettings.getMuted());
+
+        ScoreModel scoreModel = new ViewModelProvider(requireActivity()).get(ScoreModel.class);
+        intent.putExtra("esScore", scoreModel.getEsScore());
+        intent.putExtra("hsScore", scoreModel.getHsScore());
+        intent.putExtra("ebScore", scoreModel.getEbScore());
+        intent.putExtra("hbScore", scoreModel.getHbScore());
+        intent.putExtra("totalScore", scoreModel.getTotalScore());
+
+        startActivity(intent);
+    }
+
+    //Implicit Intent that opens facebook
+    private void moveToShareGame(){
+
+        String advertisementText = "102% of people (with a 2% margin of error) fail this quiz";
+        String url = "https://www.facebook.com";
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        //i.setType("text/plain");
+        //i.putExtra(Intent.EXTRA_TEXT, advertisementText);
+
+        //opens Facebook app
+        //i.setPackage("com.facebook.katana");
+
+        startActivity(i);
+    }
+
+
+
+    //main codes
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_main_menu, container, false);
+
+        //SYSTEM WINDOW INSETS PADDING
+        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.main_menu), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+
+        });
+
+        ScoreModel scoreModel = new ViewModelProvider(requireActivity()).get(ScoreModel.class);
+        TextView totalScore = view.findViewById(R.id.totalScore);
+        if(scoreModel.getTotalScore() > 0){
+            totalScore.setText("Total Score: " + String.valueOf(scoreModel.getTotalScore()));
+        }
+
+        //SETTINGS BUTTON LOGIC
+        ImageButton settingsButton = view.findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(v -> { moveToSettings(); });
+
+        ImageButton playButton = view.findViewById(R.id.playButton);
+        playButton.setOnClickListener(v -> { moveToGameActivity(); });
+
+        ImageButton shareButton =  view.findViewById(R.id.shareButton);
+        shareButton.setOnClickListener( v->{
+            moveToShareGame();
+        });
+        return view;
+    }
+
+}
